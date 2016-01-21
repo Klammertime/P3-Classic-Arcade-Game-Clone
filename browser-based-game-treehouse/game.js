@@ -1,3 +1,24 @@
+/* Game Logic:
+Init
+  - Bind Events
+  - Place Frog
+  - Place Obstacles
+Update
+  - Check for Movement
+  - Check for Obstacles
+  - Move
+  - Check for Badges
+Render
+Check for Victory
+
+We could keep on buildign from scratch but now we're
+going to use Lime JS because:
+- Free and open source
+- Uses DOM or Canvas
+- Built on Google Closure
+- Requires Python during dev like SaSS requires Ruby
+*/
+
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 
@@ -42,7 +63,12 @@ function init() {
 // inside update method, move characters around, check
 // for collisions with walls, create objects
 function update() {
-
+  // we want to draw frog and clear him off otherwise
+  // you get a long stream of frog
+  frogY = frogY + 3;
+  // here we cleared off the whole frame and drew again
+  // if large game wouldn't want to do this
+  context.clearRect(0, 0, 400, 400);
   // Put frog in game w/ drawImage method on context
   // pass in image object we want to use
   // plus x, y, w, h where image drawn
