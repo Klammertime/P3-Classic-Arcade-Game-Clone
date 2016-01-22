@@ -1,11 +1,24 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy,
+    enemy,
+    Player,
+    player,
+    allEnemies = [];
+
+
+Enemy = function(enemyX, enemyY, enemySpeed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    // I have to set initial location
+    this.x = enemyX;
+    this.y = enemyY;
+
+    // set initial speed
+    this.speed = enemySpeed;
 };
 
 // Update the enemy's position, required method for game
@@ -22,15 +35,40 @@ Enemy.prototype.render = function() {
 };
 
 // Now write your own player class
+Player = function() {
+    this.sprite = 'images/char-boy.png';
+    this.x = 200;
+    this.y = 420;
+    this.speed = 0.2;
+    this.isMoving = false;
+};
+
+Player.prototype.update = function(dt) {
+
+};
+
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 // This class requires an update(), render() and
 // a handleInput() method.
+Player.prototype.handleInput = function() {
+
+};
 
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
+for(var i = 0; i < 10; i++) {
+    var speed = Math.random() * 0.6;
+    enemy = new Enemy(-100, 60, speed);
+    allEnemies.push(enemy);
+}
+    console.log("allEnemies", allEnemies);
+
 // Place the player object in a variable called player
-
-
+player = new Player();
+// TODOLAST: make different players based on dif chars
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
