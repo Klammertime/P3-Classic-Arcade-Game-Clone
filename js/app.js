@@ -56,7 +56,6 @@ Player.prototype.handleInput = function() {
 
 };
 
-
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 for(var i = 0; i < 10; i++) {
@@ -64,7 +63,6 @@ for(var i = 0; i < 10; i++) {
     enemy = new Enemy(-100, 60, speed);
     allEnemies.push(enemy);
 }
-    console.log("allEnemies", allEnemies);
 
 // Place the player object in a variable called player
 player = new Player();
