@@ -2,7 +2,14 @@ var Enemy,
     enemy,
     Player,
     player,
-    allEnemies = [];
+    allEnemies = [],
+    princess,
+    catGirl,
+    hornGirl,
+    pinkGirl,
+    charBoy,
+    board;
+
 
 Enemy = function(enemyX, enemyY) {
     // Image/sprite for enemies, uses a helper provided in resources.js
@@ -13,8 +20,9 @@ Enemy = function(enemyX, enemyY) {
     this.won = false;
     // Sets initial speed.
     this.speed = Math.floor((Math.random() * 400) + 50);
-    // this.direction = "right";
 };
+
+
 
 // Updates enemy's position using dt param, a time delta between ticks.
 Enemy.prototype.update = function(dt) {
@@ -23,6 +31,7 @@ Enemy.prototype.update = function(dt) {
     } else {
         this.x = -(Math.floor(Math.random() * 50) + 30);
     }
+
     // Multiply movement by dt ensures game runs at the same speed for
     // all computers.
     if (player.x >= this.x - 40 && player.x <= this.x + 40) {
@@ -38,25 +47,27 @@ Enemy.prototype.render = function() {
 };
 
 // Player class.
-Player = function() {
-    this.sprite = "images/char-boy.png";
-    this.x = 200;
-    this.y = 380;
+Player = function(playerX, playerY, playerImgID) {
+    this.sprite = "images/" + playerImgID + ".png";
+    this.x = playerX;
+    this.y = playerY;
     this.width = 101;
     this.height = 171;
     this.isMoving = false;
     this.direction = "up";
     this.won = false;
+    this.score = 0;
 };
 
+player = new Player(200, 380, "char-boy");
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
 };
 
-// this didn't work, it doesn't erase easily
 Player.prototype.win = function() {
-    ctx.font = "46px Orbitron";
-    ctx.fillText("You Win!!!", 140, 40);
+    this.score++;
+    console.log(this.score);
+    // TODO: Display score somewhere.
 };
 
 Player.prototype.reset = function() {
@@ -98,14 +109,13 @@ Player.prototype.update = function() {
         } else if (futureY === 1) {
             this.y = futureY;
             this.won = true;
-            // this.win();
+            this.win();
 
             // Let player reach water then reset after 1 second delay.
             setTimeout(function() {
                 this.player.reset();
             }, 1000);
             // TODO: something for winning?
-            console.log("you win");
         } else {
             this.x = futureX;
             this.y = futureY;
@@ -126,10 +136,10 @@ for (var i = 0; i < 4; i++) {
 
 // TODOLAST: make different players based on dif chars
 // Place the player object in a variable called player
-player = new Player();
 
 // This listens for key presses and sends the keys to player.handleInput
 document.addEventListener('keyup', function(e) {
+
     var allowedKeys = {
         37: 'left',
         38: 'up',
@@ -139,3 +149,56 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+Gem = function(gemX, gemY) {
+    this.sprite = "images/Gem-Blue.png";
+    this.x = gemX;
+    this.y = gemY;
+};
+
+gem = new Gem(300, 150);
+
+Gem.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+function handleDragStart(event) {
+    sourceID = this.id;
+    console.log("sourceID", sourceID);
+    player.sprite = "images/" + sourceID + ".png";
+    sourceClass = this.id;
+    document.body.className = sourceClass;
+    console.log("sourceClass", sourceClass);
+}
+
+function handleDragDrop(event) {
+    if (event.preventDefault) event.preventDefault();
+}
+
+// neccessary to make drop work, weird but necessary.
+function handleDragOver(event) {
+    if (event.preventDefault) event.preventDefault();
+    return false;
+}
+
+princess = document.getElementById("char-princess-girl");
+catGirl = document.getElementById("char-cat-girl");
+hornGirl = document.getElementById("char-horn-girl");
+pinkGirl = document.getElementById("char-pink-girl");
+charBoy = document.getElementById("char-boy");
+gameZone = document.getElementById("game-zone");
+
+princess.addEventListener("dragstart", handleDragStart, false);
+catGirl.addEventListener("dragstart", handleDragStart, false);
+hornGirl.addEventListener("dragstart", handleDragStart, false);
+pinkGirl.addEventListener("dragstart", handleDragStart, false);
+charBoy.addEventListener("dragstart", handleDragStart, false);
+gameZone.addEventListener("dragover", handleDragOver, false);
+gameZone.addEventListener("drop", handleDragDrop, false);
+
+
+
+
+
+
+

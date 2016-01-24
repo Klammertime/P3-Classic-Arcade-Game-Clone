@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Effective JavaScript: Frogger</title>
-    <link href='https://fonts.googleapis.com/css?family=Orbitron:700,900' rel='stylesheet' type='text/css'>    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
+    <div id="game-zone"></div>
+
+    <div class="players">
+        <h2>Drag and drop the player you want onto the board</h2>
+        <img id="char-princess-girl" class="char-princess-girl" src="images/char-princess-girl.png" draggable="true" />
+        <img id="char-cat-girl" src="images/char-cat-girl.png" draggable="true" />
+        <img id="char-horn-girl" src="images/char-horn-girl.png" draggable="true" />
+        <img id="char-pink-girl" src="images/char-pink-girl.png" draggable="true" />
+        <img id="char-boy" src="images/char-boy.png" draggable="true" />
+    </div>
+
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
 </body>
+
 </html>
