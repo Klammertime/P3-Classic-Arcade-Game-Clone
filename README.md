@@ -1,7 +1,8 @@
-frontend-nanodegree-arcade-game
-===============================
+# Frontend-nanodegree-arcade-game
+=================================
 
-
+I'm still working on this, but you can play it right now:
+http://klammertime.github.io/frontend-nanodegree-arcade-game/
 
 
 Rubric for grading: [rubric](https://www.udacity.com/course/viewer/#!/c-nd001/l-2696458597/m-2687128535) for self-checking their submission.
