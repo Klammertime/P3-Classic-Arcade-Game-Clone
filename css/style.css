@@ -13,11 +13,18 @@ h2 {
 
 h1 {
     font-weight: 700;
-    font-size: 42px;
+    font-size: 36px;
 }
 
 h2 {
+    margin-top: 0;
     font-weight: 500;
+}
+
+p {
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 0;
 }
 
 body {
@@ -30,6 +37,26 @@ body {
     background: linear-gradient(to left, #F1F2B5, #135058);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+
+/*.one-column,
+.two-columns,
+.eight-columns {
+  display: inline-block;
+}
+
+.two-columns {
+  width: 20%;
+}
+
+
+
+.one-column {
+    width: 8%;
+}
+
+.ten-columns {
+    width: 100%;
+}*/
 
 .char-princess-girl {
     background: #5f2c82;

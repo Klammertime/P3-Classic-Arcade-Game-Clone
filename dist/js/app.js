@@ -64,11 +64,11 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
 };
 
-Player.prototype.win = function() {
-    this.score++;
-    console.log(this.score);
-    // TODO: Display score somewhere.
-};
+// Player.prototype.win = function() {
+//     this.score++;
+//     console.log(this.score);
+//     // TODO: Display score somewhere.
+// };
 
 Player.prototype.reset = function() {
     this.x = 200;
@@ -109,8 +109,7 @@ Player.prototype.update = function() {
         } else if (futureY === 1) {
             this.y = futureY;
             this.won = true;
-            this.win();
-
+            this.score++;
             // Let player reach water then reset after 1 second delay.
             setTimeout(function() {
                 this.player.reset();
