@@ -1,27 +1,79 @@
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:700,500);
+h1,
+h2,
+p {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+h1,
+h2 {
+    color: #fff;
+    margin-bottom: 0;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 42px;
+}
+
+h2 {
+    font-weight: 500;
+}
+
 body {
     text-align: center;
+    opacity: 1;
+    background: #F1F2B5;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #F1F2B5, #135058);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #F1F2B5, #135058);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .char-princess-girl {
-
+    background: #5f2c82;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #5f2c82, #49a09d);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #5f2c82, #49a09d);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .char-cat-girl {
-
+    background: #E55D87;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #E55D87, #5FC3E4);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #E55D87, #5FC3E4);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .char-horn-girl {
-
+    background: #003973;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #003973, #E5E5BE);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #003973, #E5E5BE);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .char-pink-girl {
-
+    background: #fc00ff;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #fc00ff, #00dbde);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #fc00ff, #00dbde);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .char-boy {
-
+    background: #000000;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #000000, #e74c3c);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #000000, #e74c3c);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.game-zone {
-
-}
+.game-zone {}
