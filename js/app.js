@@ -10,8 +10,7 @@ var Enemy,
     charBoy,
     board,
     allGems = [],
-    Gem,
-    gem;
+    Gem;
 
 Enemy = function(enemyX, enemyY) {
     // Image/sprite for enemies, uses a helper provided in resources.js
@@ -32,12 +31,13 @@ Enemy.prototype.update = function(dt) {
         this.x = -(Math.floor(Math.random() * 50) + 30);
     }
 
-    // Multiply movement by dt ensures game runs at the same speed for
-    // all computers.
+    // Multiply movement by dt ensures game runs same speed for all computers.
     if (player.x >= this.x - 40 && player.x <= this.x + 40) {
         if (player.y >= this.y - 20 && player.y <= this.y + 20) {
+            // Player lost, got hit by enemy.
             player.reset(this.player);
-            player.score -= 20;
+            player.updateScore(-20);
+            player.updateLives(-1);
         }
     }
 };
@@ -58,10 +58,10 @@ Player = function(playerX, playerY, playerImgID) {
     this.direction = "up";
     this.won = false;
     this.score = 0;
-    console.log("this", this);
+    this.lives = 5;
 };
 
-player = new Player(200, 380, "char-boy");
+player = new Player(200, 380, "char-pink-girl");
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
 };
@@ -72,6 +72,30 @@ Player.prototype.reset = function() {
     this.won = false;
     this.isMoving = false;
     resetGem();
+};
+
+Player.prototype.updateLives = function(life) {
+    var parentDiv = document.getElementById("lives");
+    var span2 = document.getElementById("hearts");
+    var span1 = document.createElement("span");
+
+    span1.id = "hearts";
+    this.lives += life;
+    for (i = 0; i < this.lives; i++) {
+        var img = new Image(); // HTML5 Constructor
+        img.src = 'images/Heart.png';
+        img.id = 'life'
+        img.alt = 'Lives';
+        span1.appendChild(img);
+    }
+    parentDiv.replaceChild(span1, span2);
+};
+
+player.updateLives(0);
+Player.prototype.updateScore = function(amount) {
+    this.score += amount;
+    var el = document.getElementById("score");
+    el.textContent = "Your score: " + this.score;
 };
 
 Player.prototype.update = function() {
@@ -107,14 +131,11 @@ Player.prototype.update = function() {
         } else if (futureY === 1) {
             this.y = futureY;
             this.won = true;
-            this.score += 20;
-            console.log("this.score when win", this.score);
+            this.updateScore(20);
             // Let player reach water then reset after 1 second delay.
             setTimeout(function() {
-
                 this.player.reset();
             }, 1000);
-            // TODO: something for winning?
         } else {
             this.x = futureX;
             this.y = futureY;
@@ -152,13 +173,13 @@ Gem = function(gemX, gemY, gemColor) {
     this.y = gemY;
 };
 
-   for (var j = 0; j < 3; j++) {
-        var tempY = [60, 150, 220, 150];
-        var tempX = [0, 100, 200, 300];
-        var colors = ["Blue", "Green", "Orange", "Blue"];
-        var k = Math.round(Math.random() * 3);
-        allGems.push(new Gem(tempX[k], tempY[k], colors[k]));
-    }
+for (var j = 0; j < 3; j++) {
+    var tempY = [60, 150, 220, 150];
+    var tempX = [0, 100, 200, 300];
+    var colors = ["Blue", "Green", "Orange", "Blue"];
+    var k = Math.round(Math.random() * 3);
+    allGems.push(new Gem(tempX[k], tempY[k], colors[k]));
+}
 
 Gem.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -168,8 +189,8 @@ Gem.prototype.update = function() {
     if (player.x >= this.x - 20 && player.x <= this.x + 20) {
         if (player.y >= this.y - 10 && player.y <= this.y + 10) {
             player.score += 2;
-            for(i = 0; i < 3; i++){
-                if (this.x === allGems[i].x){
+            for (i = 0; i < 3; i++) {
+                if (this.x === allGems[i].x) {
                     allGems.splice(i, 1);
                     return false;
                 }
@@ -180,7 +201,7 @@ Gem.prototype.update = function() {
 
 function resetGem() {
     allGems = [];
-   for (var j = 0; j < 3; j++) {
+    for (var j = 0; j < 3; j++) {
         var tempY = [60, 150, 220, 150];
         var tempX = [0, 100, 200, 300];
         var colors = ["Blue", "Green", "Orange", "Blue"];

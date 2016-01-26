@@ -8,8 +8,9 @@ var Enemy,
     hornGirl,
     pinkGirl,
     charBoy,
-    board;
-
+    board,
+    allGems = [],
+    Gem;
 
 Enemy = function(enemyX, enemyY) {
     // Image/sprite for enemies, uses a helper provided in resources.js
@@ -22,8 +23,6 @@ Enemy = function(enemyX, enemyY) {
     this.speed = Math.floor((Math.random() * 400) + 50);
 };
 
-
-
 // Updates enemy's position using dt param, a time delta between ticks.
 Enemy.prototype.update = function(dt) {
     if (this.x < 550) {
@@ -32,11 +31,13 @@ Enemy.prototype.update = function(dt) {
         this.x = -(Math.floor(Math.random() * 50) + 30);
     }
 
-    // Multiply movement by dt ensures game runs at the same speed for
-    // all computers.
+    // Multiply movement by dt ensures game runs same speed for all computers.
     if (player.x >= this.x - 40 && player.x <= this.x + 40) {
         if (player.y >= this.y - 20 && player.y <= this.y + 20) {
+            // Player lost, got hit by enemy.
             player.reset(this.player);
+            player.updateScore(-20);
+            player.updateLives(-1);
         }
     }
 };
@@ -57,24 +58,44 @@ Player = function(playerX, playerY, playerImgID) {
     this.direction = "up";
     this.won = false;
     this.score = 0;
+    this.lives = 5;
 };
 
-player = new Player(200, 380, "char-boy");
+player = new Player(200, 380, "char-pink-girl");
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
 };
-
-// Player.prototype.win = function() {
-//     this.score++;
-//     console.log(this.score);
-//     // TODO: Display score somewhere.
-// };
 
 Player.prototype.reset = function() {
     this.x = 200;
     this.y = 380;
     this.won = false;
     this.isMoving = false;
+    resetGem();
+};
+
+Player.prototype.updateLives = function(life) {
+    var parentDiv = document.getElementById("lives");
+    var span2 = document.getElementById("hearts");
+    var span1 = document.createElement("span");
+
+    span1.id = "hearts";
+    this.lives += life;
+    for (i = 0; i < this.lives; i++) {
+        var img = new Image(); // HTML5 Constructor
+        img.src = 'images/Heart.png';
+        img.id = 'life'
+        img.alt = 'Lives';
+        span1.appendChild(img);
+    }
+    parentDiv.replaceChild(span1, span2);
+};
+
+player.updateLives(0);
+Player.prototype.updateScore = function(amount) {
+    this.score += amount;
+    var el = document.getElementById("score");
+    el.textContent = "Your score: " + this.score;
 };
 
 Player.prototype.update = function() {
@@ -100,6 +121,7 @@ Player.prototype.update = function() {
                 futureX = futureX - 100;
                 break;
         }
+
         if (futureY > 402 || futureY < 0) {
             this.isMoving = true;
             return false;
@@ -109,12 +131,11 @@ Player.prototype.update = function() {
         } else if (futureY === 1) {
             this.y = futureY;
             this.won = true;
-            this.score++;
+            this.updateScore(20);
             // Let player reach water then reset after 1 second delay.
             setTimeout(function() {
                 this.player.reset();
             }, 1000);
-            // TODO: something for winning?
         } else {
             this.x = futureX;
             this.y = futureY;
@@ -133,9 +154,6 @@ for (var i = 0; i < 4; i++) {
     allEnemies.push(new Enemy(-2, tempY[i]));
 }
 
-// TODOLAST: make different players based on dif chars
-// Place the player object in a variable called player
-
 // This listens for key presses and sends the keys to player.handleInput
 document.addEventListener('keyup', function(e) {
 
@@ -145,29 +163,58 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
     player.handleInput(allowedKeys[e.keyCode]);
+
 });
 
-Gem = function(gemX, gemY) {
-    this.sprite = "images/Gem-Blue.png";
+Gem = function(gemX, gemY, gemColor) {
+    this.sprite = "images/Gem-" + gemColor + ".png";
     this.x = gemX;
     this.y = gemY;
 };
 
-gem = new Gem(300, 150);
+for (var j = 0; j < 3; j++) {
+    var tempY = [60, 150, 220, 150];
+    var tempX = [0, 100, 200, 300];
+    var colors = ["Blue", "Green", "Orange", "Blue"];
+    var k = Math.round(Math.random() * 3);
+    allGems.push(new Gem(tempX[k], tempY[k], colors[k]));
+}
 
 Gem.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+Gem.prototype.update = function() {
+    if (player.x >= this.x - 20 && player.x <= this.x + 20) {
+        if (player.y >= this.y - 10 && player.y <= this.y + 10) {
+            player.score += 2;
+            for (i = 0; i < 3; i++) {
+                if (this.x === allGems[i].x) {
+                    allGems.splice(i, 1);
+                    return false;
+                }
+            }
+        }
+    }
+};
+
+function resetGem() {
+    allGems = [];
+    for (var j = 0; j < 3; j++) {
+        var tempY = [60, 150, 220, 150];
+        var tempX = [0, 100, 200, 300];
+        var colors = ["Blue", "Green", "Orange", "Blue"];
+        var k = Math.round(Math.random() * 3);
+        allGems.push(new Gem(tempX[k], tempY[k], colors[k]));
+    }
+}
+
 function handleDragStart(event) {
     sourceID = this.id;
-    console.log("sourceID", sourceID);
     player.sprite = "images/" + sourceID + ".png";
     sourceClass = this.id;
     document.body.className = sourceClass;
-    console.log("sourceClass", sourceClass);
 }
 
 function handleDragDrop(event) {
@@ -194,10 +241,3 @@ pinkGirl.addEventListener("dragstart", handleDragStart, false);
 charBoy.addEventListener("dragstart", handleDragStart, false);
 gameZone.addEventListener("dragover", handleDragOver, false);
 gameZone.addEventListener("drop", handleDragDrop, false);
-
-
-
-
-
-
-
