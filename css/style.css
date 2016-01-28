@@ -1,7 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Ubuntu:700,500);
 h1,
 h2,
-p {
+p,
+span {
     font-family: 'Ubuntu', sans-serif;
 }
 
@@ -18,13 +19,8 @@ h1 {
 
 h2 {
     margin-top: 0;
+    font-size: 18px;
     font-weight: 500;
-}
-
-p {
-    color: #fff;
-    font-size: 22px;
-    margin-bottom: 0;
 }
 
 body {
@@ -48,6 +44,11 @@ img {
 
 .top {
     display: inline-block;
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 0;
+    margin-right: 32px;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .char-princess-girl {
@@ -94,5 +95,3 @@ img {
     background: linear-gradient(to left, #000000, #e74c3c);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-
-.game-zone {}
