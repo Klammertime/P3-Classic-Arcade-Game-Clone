@@ -161,7 +161,7 @@ Player.prototype.displayStatus = function(status) {
             msg = "Keep trying.";
             break;
         case "lost game":
-            msg = "You lost all of your lives! That's okay, we'll give you 5 new ones.";
+            msg = "You lost. That's okay.";
             break;
         case "won":
             msg = "You won!";
