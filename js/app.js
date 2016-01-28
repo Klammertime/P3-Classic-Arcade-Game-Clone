@@ -47,7 +47,7 @@ Enemy.prototype.checkCollision = function(playerX, playerY, enemyX, enemyY) {
     // if within 40 x and 20 y of each other, player hit
     if ((playerX >= enemyX - 40 && playerX <= enemyX + 40) &&
         (playerY >= enemyY - 20 && playerY <= enemyY + 20)) {
-            player.changeLives(-1);
+        player.changeLives(-1);
     }
 };
 
@@ -258,13 +258,13 @@ Gem.prototype.render = function() {
 Gem.prototype.update = function() {
     if ((player.x >= this.x - 20 && player.x <= this.x + 20) &&
         (player.y >= this.y - 10 && player.y <= this.y + 10)) {
-            player.score += 2;
-            for (var i = 0; i < 3; i++) {
-                if (this.x === allGems[i].x) {
-                    allGems.splice(i, 1);
-                    return false;
-                }
+        player.score += 2;
+        for (var i = 0; i < 3; i++) {
+            if (this.x === allGems[i].x) {
+                allGems.splice(i, 1);
+                return false;
             }
+        }
     }
 };
 
