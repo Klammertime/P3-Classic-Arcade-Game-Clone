@@ -25,12 +25,12 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-        canvas.width = 505;
-        canvas.height = 606;
-        canvas.id = "board";
-        // doc.body.appendChild(canvas);
-        // append canvas to div with ID 'game-zone'.
-        doc.getElementById('game-zone').appendChild(canvas);
+    canvas.width = 505;
+    canvas.height = 606;
+    canvas.id = "board";
+    // doc.body.appendChild(canvas);
+    // append canvas to div with ID 'game-zone'.
+    doc.getElementById('game-zone').appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -113,13 +113,15 @@ var Engine = (function(global) {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
+        //ctx.clearRect(0 , 0 , canvas.width, canvas.height);
+
         var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+                'images/water-block.png', // Top row is water
+                'images/stone-block.png', // Row 1 of 3 of stone
+                'images/stone-block.png', // Row 2 of 3 of stone
+                'images/stone-block.png', // Row 3 of 3 of stone
+                'images/grass-block.png', // Row 1 of 2 of grass
+                'images/grass-block.png' // Row 2 of 2 of grass
             ],
             numRows = 6,
             numCols = 5,
@@ -169,8 +171,15 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+
     }
+
+    // function gameOver() {
+    //     // this would be a good place to say game over, black screen, init
+    //     ctx.fillStyle = "black";
+    //     ctx.fillRect(0, 0, 505, 606);
+    //     console.log("gameOver ran");
+    // }
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
