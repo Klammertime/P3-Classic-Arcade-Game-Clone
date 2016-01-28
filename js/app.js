@@ -31,30 +31,23 @@ var Enemy,
 
 Enemy = function(enemyX, enemyY) {
     // Sprite for enemies uses helper provided in resources.js
-    this.sprite = "images/enemy-bug.png";
+    this.sprite = 'images/enemy-bug.png';
     this.x = enemyX;
     this.y = enemyY;
-    this.isMoving = true; // TODO: Are you using this anywhere?
     this.speed = Math.floor((Math.random() * 400) + 50); // Sets initial speed.
 };
 
 // Updates enemy's position using dt param, a time delta between ticks.
 Enemy.prototype.update = function(dt) {
-    if (this.x < 550) {
-        this.x += this.speed * dt;
-    } else {
-        this.x = -(Math.floor(Math.random() * 50) + 30);
-    }
+    this.x < 550 ? this.x += this.speed * dt : this.x = -(Math.floor(Math.random() * 50) + 30);
     this.checkCollision(player.x, player.y, this.x, this.y);
 };
 
 Enemy.prototype.checkCollision = function(playerX, playerY, enemyX, enemyY) {
     // if within 40 x and 20 y of each other, player hit
-    if (playerX >= enemyX - 40 && playerX <= enemyX + 40) {
-        if (playerY >= enemyY - 20 && playerY <= enemyY + 20) {
-            // if player has only 1 life left
+    if ((playerX >= enemyX - 40 && playerX <= enemyX + 40) &&
+        (playerY >= enemyY - 20 && playerY <= enemyY + 20)) {
             player.changeLives(-1);
-        }
     }
 };
 
@@ -63,9 +56,18 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-for (var i = 0; i < 4; i++) {
-    var tempY = [60, 150, 220, 150];
-    allEnemies.push(new Enemy(-2, tempY[i]));
+// myArray = ['a', 1, 'etc'];
+// myArray.forEach(function(val) {
+//     console.log(val);
+// });
+
+createAllEnemies();
+
+function createAllEnemies() {
+    var allEnemyY = [60, 150, 220, 150];
+    allEnemyY.forEach(function(val) {
+        allEnemies.push(new Enemy(-2, val));
+    });
 }
 
 /*
@@ -73,19 +75,19 @@ for (var i = 0; i < 4; i++) {
  *
  */
 Player = function(playerX, playerY, playerImgID) {
-    this.sprite = "images/" + playerImgID + ".png";
+    this.sprite = 'images/' + playerImgID + '.png';
     this.x = playerX;
     this.y = playerY;
     this.width = 101;
     this.height = 171;
     this.isMoving = false;
-    this.direction = "up";
+    this.direction = 'up';
     this.score = 0;
     this.lives = 5;
-    this.status = "playing"; // "lostGame", "won", "died"
+    this.status = 'playing'; // Possible: "lostGame", "won", "died"
 };
 
-player = new Player(200, 380, "char-pink-girl");
+player = new Player(200, 380, 'char-pink-girl');
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
@@ -97,17 +99,17 @@ Player.prototype.reset = function() {
     this.isMoving = false;
 
     setTimeout(function() {
-        this.player.status = "playing";
+        this.player.status = 'playing';
         this.player.displayStatus(this.player.status);
     }, 1000);
 };
 
 Player.prototype.displayLives = function(totalLives) {
-    var parentDiv = document.getElementById("lives");
-    var span2 = document.getElementById("hearts");
-    var span1 = document.createElement("span");
-    span1.id = "hearts";
-    for (i = 0; i < totalLives; i++) {
+    var parentDiv = document.getElementById('lives');
+    var span2 = document.getElementById('hearts');
+    var span1 = document.createElement('span');
+    span1.id = 'hearts';
+    for (var i = 0; i < totalLives; i++) {
         var img = new Image(); // HTML5 Constructor
         img.src = 'images/Heart.png';
         img.id = 'life';
@@ -122,7 +124,7 @@ Player.prototype.changeLives = function(life) {
     this.displayLives(this.lives);
 
     if (life > 0) {
-        this.status = "won";
+        this.status = 'won';
         pointsNow = this.changeScore(20);
 
     } else if (this.lives === 0) {
@@ -130,7 +132,7 @@ Player.prototype.changeLives = function(life) {
         return false;
 
     } else {
-        this.status = "died";
+        this.status = 'died';
         pointsNow = this.changeScore(-20);
     }
     this.displayStatus(this.status);
@@ -140,7 +142,7 @@ Player.prototype.changeLives = function(life) {
 };
 
 Player.prototype.lostGame = function() {
-    this.status = "lost game";
+    this.status = 'lost game';
     this.displayStatus(this.status);
     this.lives = 5;
     this.displayLives(this.lives);
@@ -148,8 +150,6 @@ Player.prototype.lostGame = function() {
     resetGems();
 };
 
-// all V
-// need them to go back to blank though after 1 second?
 Player.prototype.displayStatus = function(status) {
     var msg,
         parentDiv,
@@ -157,26 +157,27 @@ Player.prototype.displayStatus = function(status) {
         span2;
 
     switch (status) {
-        case "playing":
-            msg = "Keep trying.";
+        case 'playing':
+            msg = 'Keep trying.';
             break;
-        case "lost game":
-            msg = "You lost all of your lives! That's okay, we'll give you 5 new ones.";
+        case 'lost game':
+            msg = 'You lost. That\'s okay.';
             break;
-        case "won":
-            msg = "You won!";
+        case 'won':
+            msg = 'You won!';
             break;
-        case "died":
-            msg = "You died!";
+        case 'died':
+            msg = 'You died!';
             break;
     }
-    parentDiv = document.getElementById("displayStatus");
-    span2 = document.getElementById("wl-update");
-    span1 = document.createElement("span");
-    span1.id = "wl-update";
+    parentDiv = document.getElementById('displayStatus');
+    span2 = document.getElementById('wl-update');
+    span1 = document.createElement('span');
+    span1.id = 'wl-update';
     span1.innerHTML = msg;
     parentDiv.replaceChild(span1, span2);
 };
+
 player.displayStatus(player.status);
 
 Player.prototype.changeScore = function(points) {
@@ -185,11 +186,11 @@ Player.prototype.changeScore = function(points) {
 };
 
 Player.prototype.displayScore = function(totalPoints) {
-    var scoreBoard = document.getElementById("score");
-    scoreBoard.textContent = "Your score: " + totalPoints;
+    var scoreBoard = document.getElementById('score');
+    scoreBoard.textContent = 'Your score: ' + totalPoints;
 };
 
-// Assignment wants this called update
+// Udacity assignment wants this called update
 Player.prototype.update = function() {
     var futureX = this.x,
         futureY = this.y,
@@ -197,20 +198,16 @@ Player.prototype.update = function() {
 
     if (this.isMoving) {
         switch (this.direction) {
-            case "up":
-                if (futureY === 60 && this.status !== "won") {
-                    futureY = futureY - 59;
-                } else {
-                    futureY = futureY - 80;
-                }
+            case 'up':
+                futureY === 60 && this.status !== 'won' ? futureY = futureY - 59 : futureY = futureY - 80;
                 break;
-            case "right":
+            case 'right':
                 futureX = futureX + 100;
                 break;
-            case "down":
+            case 'down':
                 futureY = futureY + 80;
                 break;
-            case "left":
+            case 'left':
                 futureX = futureX - 100;
                 break;
         }
@@ -233,6 +230,7 @@ Player.prototype.update = function() {
 };
 
 player.displayLives(player.lives);
+
 player.displayStatus(player.status);
 
 Player.prototype.handleInput = function(keyDirection) {
@@ -246,7 +244,7 @@ Player.prototype.handleInput = function(keyDirection) {
  */
 
 Gem = function(gemX, gemY, gemColor) {
-    this.sprite = "images/Gem-" + gemColor + ".png";
+    this.sprite = 'images/Gem-' + gemColor + '.png';
     this.x = gemX;
     this.y = gemY;
 };
@@ -258,27 +256,33 @@ Gem.prototype.render = function() {
 };
 
 Gem.prototype.update = function() {
-    if (player.x >= this.x - 20 && player.x <= this.x + 20) {
-        if (player.y >= this.y - 10 && player.y <= this.y + 10) {
+    if ((player.x >= this.x - 20 && player.x <= this.x + 20) &&
+        (player.y >= this.y - 10 && player.y <= this.y + 10)) {
             player.score += 2;
-            for (i = 0; i < 3; i++) {
+            for (var i = 0; i < 3; i++) {
                 if (this.x === allGems[i].x) {
                     allGems.splice(i, 1);
                     return false;
                 }
             }
-        }
     }
 };
 
+function createAllEnemies() {
+    var allEnemyY = [60, 150, 220, 150];
+    allEnemyY.forEach(function(val) {
+        allEnemies.push(new Enemy(-2, val));
+    });
+}
+
 function resetGems() {
     allGems = [];
-    for (var j = 0; j < 3; j++) {
+    for (var i = 0; i < 3; i++) {
         var tempY = [60, 150, 220, 150];
         var tempX = [0, 100, 200, 300];
-        var colors = ["Blue", "Green", "Orange", "Blue"];
-        var k = Math.round(Math.random() * 3);
-        allGems.push(new Gem(tempX[k], tempY[k], colors[k]));
+        var colors = ['Blue', 'Green', 'Orange', 'Blue'];
+        var j = Math.round(Math.random() * 3);
+        allGems.push(new Gem(tempX[j], tempY[j], colors[j]));
     }
 }
 
@@ -312,15 +316,15 @@ function handleDragOver(event) {
 /* Set up event delegation for character list. Made class w/ same name as ID
 that changes body background color to match player. This uses Drag & Drop HTML5 API */
 function handleDragStart(event) {
-    player.sprite = "images/" + event.target.id + ".png"; // Grab character ID from event.target
+    player.sprite = 'images/' + event.target.id + '.png'; // Grab character ID from event.target
     document.body.className = event.target.id; // set body class to class w/ same name as ID
 }
 
-var characters = document.getElementById("characters");
-characters.addEventListener("dragstart", function(event) {
+var characters = document.getElementById('characters');
+characters.addEventListener('dragstart', function(event) {
     handleDragStart(event);
 }, false);
 
-gameZone = document.getElementById("game-zone");
-gameZone.addEventListener("dragover", handleDragOver, false);
-gameZone.addEventListener("drop", handleDragDrop, false);
+gameZone = document.getElementById('game-zone');
+gameZone.addEventListener('dragover', handleDragOver, false);
+gameZone.addEventListener('drop', handleDragDrop, false);
