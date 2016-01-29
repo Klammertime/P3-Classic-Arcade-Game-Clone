@@ -259,7 +259,7 @@ Player.prototype.update = function() {
                 futureX -= 100;
                 break;
         }
-        // Here we update player
+        // Now update player
         if (futureY > 402 || futureY < 0) { // Will fall off top of canvas, so don't move.
             this.isMoving = false;
             return false;
