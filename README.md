@@ -1,11 +1,26 @@
 # Frontend-nanodegree-arcade-game
 =================================
 
-I'm still working on this, but you can play it right now:
+Play the game here:
 http://klammertime.github.io/frontend-nanodegree-arcade-game/
 
+##Game Directions & Rules
 
-Rubric for grading: [rubric](https://www.udacity.com/course/viewer/#!/c-nd001/l-2696458597/m-2687128535) for self-checking their submission.
+1. The goal is to get your character to the water while avoiding getting hit by the enemy bugs. 
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+2. Pick the character you'd like by dragging and dropping your character onto the game board. You are given 5 lives to start (hearts). Keep track of your score at the top.
+
+3. Use your keyboard arrow keys to move the player up, down, right, left.
+
+4. If a bug hits you, you die, lose a life, and 20 points.
+
+5. If you gain a gem by moving on top of it, you gain 20 points.
+
+6. If you lose you 5 lives, you lose the entire game, lose 50 points, and your character is reset with new lives.
+
+7. If you reach the water, you win, gain 40 points and 1 life.
+
+This is an assignment for the Udacity Front-End Web Developer Nanodegree. Here is the rubric for grading: [rubric](https://www.udacity.com/course/viewer/#!/c-nd001/l-2696458597/m-2687128535).
+
+
 
