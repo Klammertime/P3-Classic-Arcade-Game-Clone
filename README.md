@@ -1,5 +1,4 @@
 # Frontend-nanodegree-arcade-game
-=================================
 
 Play the game here:
 http://klammertime.github.io/frontend-nanodegree-arcade-game/
