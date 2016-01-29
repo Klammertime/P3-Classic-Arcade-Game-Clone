@@ -26,7 +26,7 @@ var Engine = (function(global) {
         lastTime;
 
     canvas.width = 505;
-    canvas.height = 606;
+    canvas.height = 600; // I changed it from 606
     canvas.id = "board";
     // doc.body.appendChild(canvas);
     // append canvas to div with ID 'game-zone'.
