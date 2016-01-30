@@ -3,9 +3,7 @@ var allEnemies = [],
     Enemy,
     Player,
     player,
-    Gem,
-    characters;
-
+    Gem;
 /**
  * @description Represents the enemy bugs that run across screen
  * @constructor
@@ -132,12 +130,12 @@ Player.prototype.reset = function() {
  * Then it replaces the span on the page now, span2, with this newly created one with updated life or heart count.
  */
 
-Player.prototype.displayLives = function(totalLives) {
+Player.prototype.displayLives = function() {
     var parentDiv = document.getElementById('lives');
     var span2 = document.getElementById('hearts');
     var span1 = document.createElement('span');
     span1.id = 'hearts';
-    for (var i = 0; i < totalLives; i++) {
+    for (var i = 0; i < this.lives; i++) {
         var img = new Image(); // HTML5 Constructor
         img.src = 'images/Heart.png';
         img.id = 'life';
@@ -158,7 +156,7 @@ Player.prototype.displayLives = function(totalLives) {
 
 Player.prototype.changeLives = function(life) {
     this.lives += life;
-    this.displayLives(this.lives);
+    this.displayLives();
 
     if (life > 0) {
         this.status = 'won';
@@ -181,7 +179,7 @@ Player.prototype.lostGame = function() {
     this.displayStatus();
     this.changeScore(-50);
     this.lives = 5; // When lose game, player is reset with 5 new lives.
-    this.displayLives(this.lives);
+    this.displayLives();
     this.reset(); // Player's x & y are set to initial value
     resetGems(); // Place new gems on board
 };
@@ -230,12 +228,12 @@ player.displayStatus();
 // Changes player's score and calls displayScore with new score.
 Player.prototype.changeScore = function(points) {
     this.score += points;
-    this.displayScore(this.score);
+    this.displayScore();
 };
 
-Player.prototype.displayScore = function(totalPoints) {
+Player.prototype.displayScore = function() {
     var scoreBoard = document.getElementById('score');
-    scoreBoard.textContent = 'Your score: ' + totalPoints;
+    scoreBoard.textContent = 'Your score: ' + this.score;
 };
 
 /**
@@ -284,7 +282,7 @@ Player.prototype.update = function() {
     }
 };
 
-player.displayLives(player.lives);
+player.displayLives();
 
 player.displayStatus();
 
@@ -393,14 +391,12 @@ Player.prototype.handleDragOver = function(event) {
 }
 
 /* Using characters element allows for event delegation and one event listeners
-instead of 5. Characters declared at top of app.js with all global variables. */
-characters = document.getElementById('characters');
-
-// Event listener needs to be on dragstart for drag and drop to work.
-characters.addEventListener('dragstart', function(event) {
+instead of 5. Characters declared at top of app.js with all global variables.
+Event listener needs to be on dragstart for drag and drop to work. */
+document.getElementById('characters').addEventListener('dragstart', function(event) {
     player.handleDragStart(event);
 }, false);
 
-gameZone = document.getElementById('game-zone');
-gameZone.addEventListener('dragover', player.handleDragOver, false);
-gameZone.addEventListener('drop', player.handleDragDrop, false);
+
+document.getElementById('game-zone').addEventListener('dragover', player.handleDragOver, false);
+document.getElementById('game-zone').addEventListener('drop', player.handleDragDrop, false);
