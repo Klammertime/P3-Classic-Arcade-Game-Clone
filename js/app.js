@@ -11,6 +11,7 @@ var allEnemies = [],
  * @constructor
  * @param {number} enemyX - Enemy's x coordinate on canvas
  * @param {number} enemyY - Enemy's y coordinate on canvas
+ * Enemy declared at top of app.js with all global variables
  */
 
 Enemy = function(enemyX, enemyY) {
@@ -82,7 +83,7 @@ function createAllEnemies() {
  * @param {string} playerImgID - Player's image ID which is also the name of
  * the image. There are 5 possible images for a player, using Drag & Drop HTML5 API
  * when an image is dropped onto the canvas, it grabs the image ID and that is used
- * here.
+ * here. Player declared at top of app.js with all global variables
  */
 
 Player = function(playerX, playerY, playerImgID) {
@@ -98,23 +99,29 @@ Player = function(playerX, playerY, playerImgID) {
     this.status = 'playing'; // Possible: "lostGame", "won", "died"
 };
 
-// Player on board initially is image 'char-pink-girl.png'
+/* Player variable declared at top of app.js with all global variables
+Player on board initially is image 'char-pink-girl.png' */
 player = new Player(200, 380, 'char-pink-girl');
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
 };
-
+Player.prototype.delayThisStatus = function() {
+    window.setTimeout(this.displayStatus.bind(this), 1000);
+};
 // When player dies or wins, reset to original x & y location.
 Player.prototype.reset = function() {
     this.x = 200;
     this.y = 380;
     this.isMoving = false;
-    // Delay status message 1 second so that other status messages such as 'You died' can be seen first.
-    setTimeout(function() {
-        this.player.status = 'playing'; // Default status is 'playing'
-        this.player.displayStatus(this.player.status); // Each status has a different message
-    }, 1000);
+    this.status = 'playing';
+    this.delayThisStatus();
+    // var delayThisStatus = (function(){
+    //     this.status = 'playing'; // Default status is 'playing'
+    //     this.displayStatus(this.status);
+    // }).bind(player);
+
+    // setTimeout(delayThisStatus, 1000);
 };
 
 /**
@@ -164,14 +171,14 @@ Player.prototype.changeLives = function(life) {
         this.changeScore(-20);
     }
 
-    this.displayStatus(this.status);
+    this.displayStatus();
     this.reset();
     resetGems();
 };
 
 Player.prototype.lostGame = function() {
     this.status = 'lost game';
-    this.displayStatus(this.status);
+    this.displayStatus();
     this.changeScore(-50);
     this.lives = 5; // When lose game, player is reset with 5 new lives.
     this.displayLives(this.lives);
@@ -187,13 +194,13 @@ Player.prototype.lostGame = function() {
  * Then replaces the span on the page now, span2, with this newly created one with updated status message.
  */
 
-Player.prototype.displayStatus = function(status) {
+Player.prototype.displayStatus = function() {
     var msg,
         parentDiv,
         span1,
         span2;
 
-    switch (status) {
+    switch (this.status) {
         case 'playing':
             msg = 'Keep going!';
             break;
@@ -218,7 +225,7 @@ Player.prototype.displayStatus = function(status) {
     parentDiv.replaceChild(span1, span2);
 };
 
-player.displayStatus(player.status);
+player.displayStatus();
 
 // Changes player's score and calls displayScore with new score.
 Player.prototype.changeScore = function(points) {
@@ -279,7 +286,7 @@ Player.prototype.update = function() {
 
 player.displayLives(player.lives);
 
-player.displayStatus(player.status);
+player.displayStatus();
 
 Player.prototype.handleInput = function(keyDirection) {
     this.isMoving = true;
@@ -292,6 +299,7 @@ Player.prototype.handleInput = function(keyDirection) {
  * @param {number} gemX - Gem's x coordinate on canvas
  * @param {number} gemY - Gem's x coordinate on canvas
  * @param {string} gemColor - Gem's image file name based on color
+ * Gem declared at top of app.js with all global variables
  */
 
 Gem = function(gemX, gemY, gemColor) {
@@ -317,10 +325,10 @@ Gem.prototype.update = function() {
                 allGems.splice(i, 1);
                 player.changeScore(20);
                 player.status = 'gem';
-                player.displayStatus(player.status);
+                player.displayStatus();
+                player.status ='playing';
                 return setTimeout(function() {
-                    this.player.status = 'playing'; // Default status is 'playing'
-                    this.player.displayStatus(this.player.status); // Each status has a different message
+                    player.displayStatus();
                 }, 1000);
             }
         }
@@ -369,29 +377,30 @@ document.addEventListener('keyup', function(event) {
  * that changes body background color to match player.
  */
 
-function handleDragStart(event) {
-    player.sprite = 'images/' + event.target.id + '.png'; // Grab character ID from event.target
+Player.prototype.handleDragStart = function(event) {
+    this.sprite = 'images/' + event.target.id + '.png'; // Grab character ID from event.target
     document.body.className = event.target.id; // Set body class to class w/ same name as ID
-}
+};
 
-function handleDragDrop(event) {
+Player.prototype.handleDragDrop = function(event) {
     if (event.preventDefault) event.preventDefault();
-}
+};
 
 // Neccessary to make drop work, weird but necessary.
-function handleDragOver(event) {
+Player.prototype.handleDragOver = function(event) {
     if (event.preventDefault) event.preventDefault();
     return false;
 }
 
-// Using characters element allows for event delegation and one event listeners instead of 5.
+/* Using characters element allows for event delegation and one event listeners
+instead of 5. Characters declared at top of app.js with all global variables. */
 characters = document.getElementById('characters');
 
 // Event listener needs to be on dragstart for drag and drop to work.
 characters.addEventListener('dragstart', function(event) {
-    handleDragStart(event);
+    player.handleDragStart(event);
 }, false);
 
 gameZone = document.getElementById('game-zone');
-gameZone.addEventListener('dragover', handleDragOver, false);
-gameZone.addEventListener('drop', handleDragDrop, false);
+gameZone.addEventListener('dragover', player.handleDragOver, false);
+gameZone.addEventListener('drop', player.handleDragDrop, false);
