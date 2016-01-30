@@ -3,7 +3,16 @@ var allEnemies = [],
     Enemy,
     Player,
     player,
-    Gem;
+    Gem,
+    Entity;
+
+
+Entity = function() {
+
+};
+
+
+
 /**
  * @description Represents the enemy bugs that run across screen
  * @constructor
