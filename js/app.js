@@ -1,3 +1,5 @@
+"use strict";
+
 var TILE_WIDTH = 100,
     TILE_HEIGHT = 80,
     allEnemies = [],
@@ -11,8 +13,8 @@ var TILE_WIDTH = 100,
     Entity;
 
 /**
- * @description Superclass representing the entities on the screen: Enemy
-// TODO: for player, gem
+ * @description Superclass representing the entities on the screen: Enemy,
+ * Player and Gem
  * @constructor
  * @param {number} x - Entity's x coordinate on canvas
  * @param {number} y - Entity's y coordinate on canvas
@@ -97,6 +99,17 @@ Enemy.prototype.checkCollision = function(playerX, playerY, enemyX, enemyY) {
     }
 };
 
+/**
+ * @description Represents the player
+ * @constructor
+ * @param {number} x - Player's x coordinate on canvas
+ * @param {number} y - Player's y coordinate on canvas
+ * @param {string} sprite - Player's image ID which is also the name of
+ * the image. There are 5 possible images for a player, using Drag & Drop HTML5 API
+ * when an image is dropped onto the canvas, it grabs the image ID and that is used
+ * here. Player declared at top of app.js with all global variables
+ */
+
 Player = function(x, y, sprite) {
     Entity.call(this, x, y, sprite);
     this.isMoving = false;
@@ -111,19 +124,6 @@ Player.prototype = Object.create(Entity.prototype);
 Player.prototype.constructor = Player;
 
 player = new Player(200, 380, 'char-pink-girl');
-
-
-/**
- * @description Represents the player
- * @constructor
- * @param {number} playerX - Player's x coordinate on canvas
- * @param {number} playerY - Player's y coordinate on canvas
- * @param {string} playerImgID - Player's image ID which is also the name of
- * the image. There are 5 possible images for a player, using Drag & Drop HTML5 API
- * when an image is dropped onto the canvas, it grabs the image ID and that is used
- * here. Player declared at top of app.js with all global variables
- */
-
 
 /* Player variable declared at top of app.js with all global variables
 Player on board initially is image 'char-pink-girl.png' */
@@ -338,7 +338,7 @@ Gem.prototype.update = function() {
                 player.changeScore(20);
                 player.status = 'gem';
                 player.displayStatus();
-                player.status ='playing';
+                player.status = 'playing';
                 return player.delayThisStatus();
             }
         }
@@ -402,7 +402,7 @@ Player.prototype.handleDragDrop = function(event) {
 Player.prototype.handleDragOver = function(event) {
     if (event.preventDefault) event.preventDefault();
     return false;
-}
+};
 
 /* Using characters element allows for event delegation and one event listeners
 instead of 5. Characters declared at top of app.js with all global variables.
