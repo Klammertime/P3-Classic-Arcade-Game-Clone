@@ -7,11 +7,25 @@ var allEnemies = [],
     Entity;
 
 
-Entity = function() {
+/**
+ * @description Superclass representing the entities on the screen: Enemy
+// TODO: for player, gem
+ * @constructor
+ * @param {number} x - Entity's x coordinate on canvas
+ * @param {number} y - Entity's y coordinate on canvas
+ * @param {string} sprite - Entity's sprite used to render entity on canvas
+*/
 
+Entity = function(x, y, sprite) {
+    this.x = x;
+    this.y = y;
+    this.sprite = sprite;
 };
 
-
+// Draws, or renders, each entity on the canvas using a get method defined in resources.js
+Entity.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
 /**
  * @description Represents the enemy bugs that run across screen
@@ -21,12 +35,22 @@ Entity = function() {
  * Enemy declared at top of app.js with all global variables
  */
 
-Enemy = function(enemyX, enemyY) {
-    // Sprite for enemies uses helper provided in resources.js
-    this.sprite = 'images/enemy-bug.png';
-    this.x = enemyX;
-    this.y = enemyY;
+Enemy = function(x, y, sprite) {
+    Entity.call(this, x, y, sprite);
     this.speed = Math.floor((Math.random() * 400) + 50); // Sets random initial speed
+};
+
+Enemy.prototype = Object.create(Entity.prototype);
+
+Enemy.prototype.constructor = Enemy;
+
+enemy = new Enemy(-2, 60, 'images/enemy-bug.png');
+
+Enemy.prototype.createCollection = function(x, yArray, sprite, newCollection) {
+    yArray.forEach(function(val, ind, arr) {
+        newCollection.push(new Enemy(x, val, sprite));
+        console.log("allEnemies", allEnemies);
+    });
 };
 
 /**
@@ -38,12 +62,14 @@ Enemy = function(enemyX, enemyY) {
  * to start on left of canvas. Its random so that each enemy has a different starting position.
  */
 
-//
 Enemy.prototype.update = function(dt) {
-    // If the x-coord is not more than canvas width, enenmy can keep moving forward, else randomly reset x-coord.
+    // If the x-coord is not more than canvas width, entity can keep moving forward, else randomly reset x-coord.
     this.x = this.x < 550 ? this.x + this.speed * dt : -(Math.floor(Math.random() * 50) + 30);
     this.checkCollision(player.x, player.y, this.x, this.y);
 };
+
+enemy.createCollection(-2, [60, 150, 220, 150], 'images/enemy-bug.png', allEnemies);
+
 
 /**
  * @description Check if enemy collided with player
@@ -66,21 +92,6 @@ Enemy.prototype.checkCollision = function(playerX, playerY, enemyX, enemyY) {
         player.changeLives(-1);
     }
 };
-
-// Draws, or renders, each enemy on the canvas using a get method defined in resources.js
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-createAllEnemies();
-
-// Creates array of enemies used in app.js in updateEntities() to update enemies, player, and gems
-function createAllEnemies() {
-    var allEnemyY = [60, 150, 220, 150];
-    allEnemyY.forEach(function(val) {
-        allEnemies.push(new Enemy(-2, val));
-    });
-}
 
 /**
  * @description Represents the player
@@ -123,12 +134,6 @@ Player.prototype.reset = function() {
     this.isMoving = false;
     this.status = 'playing';
     this.delayThisStatus();
-    // var delayThisStatus = (function(){
-    //     this.status = 'playing'; // Default status is 'playing'
-    //     this.displayStatus(this.status);
-    // }).bind(player);
-
-    // setTimeout(delayThisStatus, 1000);
 };
 
 /**
