@@ -1,24 +1,60 @@
-var allEnemies = [],
+var TILE_WIDTH = 100,
+    TILE_HEIGHT = 80,
+    allEnemies = [],
     allGems = [],
     Enemy,
+    enemy,
     Player,
     player,
     Gem,
-    characters;
+    gem,
+    Entity;
+
+/**
+ * @description Superclass representing the entities on the screen: Enemy
+// TODO: for player, gem
+ * @constructor
+ * @param {number} x - Entity's x coordinate on canvas
+ * @param {number} y - Entity's y coordinate on canvas
+ * @param {string} sprite - Entity's sprite used to render entity on canvas
+*/
+
+Entity = function(x, y, sprite) {
+    this.x = x;
+    this.y = y;
+    this.sprite = 'images/' + sprite + '.png';
+    this.width = 101;
+    this.height = 171;
+};
+
+// Draws, or renders, each entity on the canvas using a get method defined in resources.js
+Entity.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
+};
 
 /**
  * @description Represents the enemy bugs that run across screen
  * @constructor
  * @param {number} enemyX - Enemy's x coordinate on canvas
  * @param {number} enemyY - Enemy's y coordinate on canvas
+ * Enemy declared at top of app.js with all global variables
  */
 
-Enemy = function(enemyX, enemyY) {
-    // Sprite for enemies uses helper provided in resources.js
-    this.sprite = 'images/enemy-bug.png';
-    this.x = enemyX;
-    this.y = enemyY;
+Enemy = function(x, y, sprite) {
+    Entity.call(this, x, y, sprite);
     this.speed = Math.floor((Math.random() * 400) + 50); // Sets random initial speed
+};
+
+Enemy.prototype = Object.create(Entity.prototype);
+
+Enemy.prototype.constructor = Enemy;
+
+enemy = new Enemy(-2, 60, 'enemy-bug');
+
+Enemy.prototype.createCollection = function(x, yArray, sprite, newCollection) {
+    yArray.forEach(function(val, ind, arr) {
+        newCollection.push(new Enemy(x, val, sprite));
+    });
 };
 
 /**
@@ -30,12 +66,14 @@ Enemy = function(enemyX, enemyY) {
  * to start on left of canvas. Its random so that each enemy has a different starting position.
  */
 
-//
 Enemy.prototype.update = function(dt) {
-    // If the x-coord is not more than canvas width, enenmy can keep moving forward, else randomly reset x-coord.
+    // If the x-coord is not more than canvas width, entity can keep moving forward, else randomly reset x-coord.
     this.x = this.x < 550 ? this.x + this.speed * dt : -(Math.floor(Math.random() * 50) + 30);
     this.checkCollision(player.x, player.y, this.x, this.y);
 };
+
+enemy.createCollection(-2, [60, 150, 220, 150], 'enemy-bug', allEnemies);
+
 
 /**
  * @description Check if enemy collided with player
@@ -59,20 +97,21 @@ Enemy.prototype.checkCollision = function(playerX, playerY, enemyX, enemyY) {
     }
 };
 
-// Draws, or renders, each enemy on the canvas using a get method defined in resources.js
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+Player = function(x, y, sprite) {
+    Entity.call(this, x, y, sprite);
+    this.isMoving = false;
+    this.direction = 'up';
+    this.score = 0;
+    this.lives = 5;
+    this.status = 'playing'; // Possible: "lostGame", "won", "died"
 };
 
-createAllEnemies();
+Player.prototype = Object.create(Entity.prototype);
 
-// Creates array of enemies used in app.js in updateEntities() to update enemies, player, and gems
-function createAllEnemies() {
-    var allEnemyY = [60, 150, 220, 150];
-    allEnemyY.forEach(function(val) {
-        allEnemies.push(new Enemy(-2, val));
-    });
-}
+Player.prototype.constructor = Player;
+
+player = new Player(200, 380, 'char-pink-girl');
+
 
 /**
  * @description Represents the player
@@ -82,27 +121,15 @@ function createAllEnemies() {
  * @param {string} playerImgID - Player's image ID which is also the name of
  * the image. There are 5 possible images for a player, using Drag & Drop HTML5 API
  * when an image is dropped onto the canvas, it grabs the image ID and that is used
- * here.
+ * here. Player declared at top of app.js with all global variables
  */
 
-Player = function(playerX, playerY, playerImgID) {
-    this.sprite = 'images/' + playerImgID + '.png';
-    this.x = playerX;
-    this.y = playerY;
-    this.width = 101;
-    this.height = 171;
-    this.isMoving = false;
-    this.direction = 'up';
-    this.score = 0;
-    this.lives = 5;
-    this.status = 'playing'; // Possible: "lostGame", "won", "died"
-};
 
-// Player on board initially is image 'char-pink-girl.png'
-player = new Player(200, 380, 'char-pink-girl');
+/* Player variable declared at top of app.js with all global variables
+Player on board initially is image 'char-pink-girl.png' */
 
-Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
+Player.prototype.delayThisStatus = function() {
+    window.setTimeout(this.displayStatus.bind(this), 1000);
 };
 
 // When player dies or wins, reset to original x & y location.
@@ -110,27 +137,22 @@ Player.prototype.reset = function() {
     this.x = 200;
     this.y = 380;
     this.isMoving = false;
-    // Delay status message 1 second so that other status messages such as 'You died' can be seen first.
-    setTimeout(function() {
-        this.player.status = 'playing'; // Default status is 'playing'
-        this.player.displayStatus(this.player.status); // Each status has a different message
-    }, 1000);
+    this.status = 'playing';
+    this.delayThisStatus();
 };
 
 /**
  * @description Display function to display player's remaining lives as hearts at top of window
- * @param {number} totalLives - 5 minus 1 (when die) or plus 1 (when win)
- * @param {number} playerY - Player y-coordinate
  * Creates a span with same ID as span on page and appends each newly created image with Heart.png src.
  * Then it replaces the span on the page now, span2, with this newly created one with updated life or heart count.
  */
 
-Player.prototype.displayLives = function(totalLives) {
+Player.prototype.displayLives = function() {
     var parentDiv = document.getElementById('lives');
     var span2 = document.getElementById('hearts');
     var span1 = document.createElement('span');
     span1.id = 'hearts';
-    for (var i = 0; i < totalLives; i++) {
+    for (var i = 0; i < this.lives; i++) {
         var img = new Image(); // HTML5 Constructor
         img.src = 'images/Heart.png';
         img.id = 'life';
@@ -151,7 +173,7 @@ Player.prototype.displayLives = function(totalLives) {
 
 Player.prototype.changeLives = function(life) {
     this.lives += life;
-    this.displayLives(this.lives);
+    this.displayLives();
 
     if (life > 0) {
         this.status = 'won';
@@ -164,19 +186,19 @@ Player.prototype.changeLives = function(life) {
         this.changeScore(-20);
     }
 
-    this.displayStatus(this.status);
+    this.displayStatus();
     this.reset();
-    resetGems();
+    gem.resetGems();
 };
 
 Player.prototype.lostGame = function() {
     this.status = 'lost game';
-    this.displayStatus(this.status);
+    this.displayStatus();
     this.changeScore(-50);
     this.lives = 5; // When lose game, player is reset with 5 new lives.
-    this.displayLives(this.lives);
+    this.displayLives();
     this.reset(); // Player's x & y are set to initial value
-    resetGems(); // Place new gems on board
+    gem.resetGems(); // Place new gems on board
 };
 
 /**
@@ -187,13 +209,13 @@ Player.prototype.lostGame = function() {
  * Then replaces the span on the page now, span2, with this newly created one with updated status message.
  */
 
-Player.prototype.displayStatus = function(status) {
+Player.prototype.displayStatus = function() {
     var msg,
         parentDiv,
         span1,
         span2;
 
-    switch (status) {
+    switch (this.status) {
         case 'playing':
             msg = 'Keep going!';
             break;
@@ -218,17 +240,17 @@ Player.prototype.displayStatus = function(status) {
     parentDiv.replaceChild(span1, span2);
 };
 
-player.displayStatus(player.status);
+player.displayStatus();
 
 // Changes player's score and calls displayScore with new score.
 Player.prototype.changeScore = function(points) {
     this.score += points;
-    this.displayScore(this.score);
+    this.displayScore();
 };
 
-Player.prototype.displayScore = function(totalPoints) {
+Player.prototype.displayScore = function() {
     var scoreBoard = document.getElementById('score');
-    scoreBoard.textContent = 'Your score: ' + totalPoints;
+    scoreBoard.textContent = 'Your score: ' + this.score;
 };
 
 /**
@@ -247,16 +269,16 @@ Player.prototype.update = function() {
     if (this.isMoving) {
         switch (this.direction) {
             case 'up':
-                futureY -= futureY === 60 && this.status !== 'won' ? 59 : 80;
+                futureY -= futureY === 60 && this.status !== 'won' ? 59 : TILE_HEIGHT;
                 break;
             case 'right':
-                futureX += 100;
+                futureX += TILE_WIDTH;
                 break;
             case 'down':
-                futureY += 80;
+                futureY += TILE_HEIGHT;
                 break;
             case 'left':
-                futureX -= 100;
+                futureX -= TILE_WIDTH;
                 break;
         }
         // Now update player
@@ -277,9 +299,9 @@ Player.prototype.update = function() {
     }
 };
 
-player.displayLives(player.lives);
+player.displayLives();
 
-player.displayStatus(player.status);
+player.displayStatus();
 
 Player.prototype.handleInput = function(keyDirection) {
     this.isMoving = true;
@@ -288,24 +310,22 @@ Player.prototype.handleInput = function(keyDirection) {
 
 /**
  * @description Represents a gem
- * @constructor
- * @param {number} gemX - Gem's x coordinate on canvas
- * @param {number} gemY - Gem's x coordinate on canvas
- * @param {string} gemColor - Gem's image file name based on color
+ * @constructor, subclass of Entity
+ * @param {number} x - Gem's x coordinate on canvas
+ * @param {number} y - Gem's x coordinate on canvas
+ * @param {string} sprite - Gem's image file name based on color
+ * Gem declared at top of app.js with all global variables
  */
 
-Gem = function(gemX, gemY, gemColor) {
-    this.sprite = 'images/' + gemColor + '.png';
-    this.x = gemX;
-    this.y = gemY;
+Gem = function(x, y, sprite) {
+    Entity.call(this, x, y, sprite);
 };
 
-// Sets gems on canvas for first time.
-resetGems();
+Gem.prototype = Object.create(Entity.prototype);
 
-Gem.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
+Gem.prototype.constructor = Gem;
+
+gem = new Gem(0, 60, 'Gem-Blue');
 
 // If player reaches a gem, increase score by 20, find the gem in the allGems array and remove it
 Gem.prototype.update = function() {
@@ -317,18 +337,16 @@ Gem.prototype.update = function() {
                 allGems.splice(i, 1);
                 player.changeScore(20);
                 player.status = 'gem';
-                player.displayStatus(player.status);
-                return setTimeout(function() {
-                    this.player.status = 'playing'; // Default status is 'playing'
-                    this.player.displayStatus(this.player.status); // Each status has a different message
-                }, 1000);
+                player.displayStatus();
+                player.status ='playing';
+                return player.delayThisStatus();
             }
         }
     }
 };
 
 // Randomly set x & y of gems and colors.
-function resetGems() {
+Gem.prototype.resetGems = function() {
     allGems = [];
     for (var i = 0; i < 3; i++) {
         var tempX = [0, 100, 200, 300, 400];
@@ -338,7 +356,9 @@ function resetGems() {
         var k = Math.floor(Math.random() * 3);
         allGems.push(new Gem(tempX[j], tempY[k], colors[k]));
     }
-}
+};
+
+gem.resetGems();
 
 /**
  * @description This Event Listener is fired when a key is released.
@@ -369,29 +389,28 @@ document.addEventListener('keyup', function(event) {
  * that changes body background color to match player.
  */
 
-function handleDragStart(event) {
-    player.sprite = 'images/' + event.target.id + '.png'; // Grab character ID from event.target
+Player.prototype.handleDragStart = function(event) {
+    this.sprite = 'images/' + event.target.id + '.png'; // Grab character ID from event.target
     document.body.className = event.target.id; // Set body class to class w/ same name as ID
-}
+};
 
-function handleDragDrop(event) {
+Player.prototype.handleDragDrop = function(event) {
     if (event.preventDefault) event.preventDefault();
-}
+};
 
 // Neccessary to make drop work, weird but necessary.
-function handleDragOver(event) {
+Player.prototype.handleDragOver = function(event) {
     if (event.preventDefault) event.preventDefault();
     return false;
 }
 
-// Using characters element allows for event delegation and one event listeners instead of 5.
-characters = document.getElementById('characters');
-
-// Event listener needs to be on dragstart for drag and drop to work.
-characters.addEventListener('dragstart', function(event) {
-    handleDragStart(event);
+/* Using characters element allows for event delegation and one event listeners
+instead of 5. Characters declared at top of app.js with all global variables.
+Event listener needs to be on dragstart for drag and drop to work. */
+document.getElementById('characters').addEventListener('dragstart', function(event) {
+    player.handleDragStart(event);
 }, false);
 
-gameZone = document.getElementById('game-zone');
-gameZone.addEventListener('dragover', handleDragOver, false);
-gameZone.addEventListener('drop', handleDragDrop, false);
+
+document.getElementById('game-zone').addEventListener('dragover', player.handleDragOver, false);
+document.getElementById('game-zone').addEventListener('drop', player.handleDragDrop, false);
