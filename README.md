@@ -34,8 +34,8 @@ Navigate to page hosted on github.com [here](http://klammertime.github.io/fronte
 Object-Oriented JavaScript, HTML5 Canvas, 
 
 ##Resources
-*Udacity Supporting Courses: [Object-Oriented JavaScript](https://www.udacity.com/course/object-oriented-javascript--ud015) & [HTML5 Canvas](https://www.udacity.com/course/html5-canvas--ud292)
-*Treehouse: [Coding Your First HTML5 Game](https://teamtreehouse.com/library/coding-your-first-html5-game), [Object Oriented JavaScript](https://teamtreehouse.com/library/objectoriented-javascript)
-*Pluralsight: [HTML5 Canvas Fundamentals](https://app.pluralsight.com/player?course=html5-canvas-fundamentals&author=dan-wahlin&name=html5-canvas-m3&clip=10&mode=live)
+* Udacity Supporting Courses: [Object-Oriented JavaScript](https://www.udacity.com/course/object-oriented-javascript--ud015) & [HTML5 Canvas](https://www.udacity.com/course/html5-canvas--ud292)
+* Treehouse: [Coding Your First HTML5 Game](https://teamtreehouse.com/library/coding-your-first-html5-game), [Object Oriented JavaScript](https://teamtreehouse.com/library/objectoriented-javascript)
+* Pluralsight: [HTML5 Canvas Fundamentals](https://app.pluralsight.com/player?course=html5-canvas-fundamentals&author=dan-wahlin&name=html5-canvas-m3&clip=10&mode=live)
 
 
