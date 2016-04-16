@@ -1,4 +1,7 @@
-# Frontend-nanodegree-arcade-game
+#Udacity P3: Classic Arcade Game Clone (42 HOURS)
+[Front End Web Developer Nanodegree Program](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001)
+
+Project Directions: You will be provided with visual assets and a game loop engine; using these tools you must add a number of entities to the game including the player characters and enemies to recreate the classic arcade game Frogger.
 
 Play the game here:
 http://klammertime.github.io/frontend-nanodegree-arcade-game/
@@ -21,5 +24,12 @@ http://klammertime.github.io/frontend-nanodegree-arcade-game/
 
 This is an assignment for the Udacity Front-End Web Developer Nanodegree. Here is the rubric for grading: [rubric](https://www.udacity.com/course/viewer/#!/c-nd001/l-2696458597/m-2687128535).
 
+##Resources
+*Udacity Supporting Courses:[Object-Oriented JavaScript](https://www.udacity.com/course/object-oriented-javascript--ud015
+), [HTML5 Canvas](https://www.udacity.com/course/html5-canvas--ud292)
+
+*[Treehouse - Coding Your First HTML5 Game](https://teamtreehouse.com/library/coding-your-first-html5-game)
+*[Treehouse - Object Oriented JavaScript](https://teamtreehouse.com/library/objectoriented-javascript)
+*[Pluralsight - HTML5 Canvas Fundamentals](https://app.pluralsight.com/player?course=html5-canvas-fundamentals&author=dan-wahlin&name=html5-canvas-m3&clip=10&mode=live)
 
 

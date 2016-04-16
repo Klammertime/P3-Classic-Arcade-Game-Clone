@@ -69,7 +69,6 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        reset();
         lastTime = Date.now();
         main();
     }
@@ -85,7 +84,6 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -167,21 +165,6 @@ var Engine = (function(global) {
 
         player.render();
     }
-
-    /* This function does nothing but it could have been a good place to
-     * handle game reset states - maybe a new game menu or a game over screen
-     * those sorts of things. It's only called once by the init() method.
-     */
-    function reset() {
-
-    }
-
-    // function gameOver() {
-    //     // this would be a good place to say game over, black screen, init
-    //     ctx.fillStyle = "black";
-    //     ctx.fillRect(0, 0, 505, 606);
-    //     console.log("gameOver ran");
-    // }
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when

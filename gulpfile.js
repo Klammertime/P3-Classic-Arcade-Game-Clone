@@ -15,7 +15,6 @@ gulp.task('clean', function() {
 gulp.task("build", function() {
     return gulp.src([
             "index.html",
-            // "memory.appcache",
             "css/*",
             "images/*",
             "js/*"

@@ -8,30 +8,30 @@ span {
 
 h1,
 h2 {
-    color: #fff;
     margin-bottom: 0;
+    color: #fff;
 }
 
 h1 {
-    font-weight: 700;
     font-size: 36px;
+    font-weight: 700;
 }
 
 h2 {
-    margin-top: 0;
     font-size: 18px;
     font-weight: 500;
+    margin-top: 0;
 }
 
 body {
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    text-align: center;
+    opacity: 1;
     background: #fc00ff;
     /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #fc00ff, #00dbde);
     /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #fc00ff, #00dbde);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    text-align: center;
-    opacity: 1;
 }
 
 img {
@@ -55,12 +55,12 @@ img {
 }
 
 .top {
-    display: inline-block;
-    color: #fff;
-    font-size: 20px;
-    margin-bottom: 0;
-    margin-right: 0;
     font-family: 'Ubuntu', sans-serif;
+    font-size: 20px;
+    display: inline-block;
+    margin-right: 0;
+    margin-bottom: 0;
+    color: #fff;
 }
 
 .char-princess-girl {
@@ -84,9 +84,9 @@ img {
 .char-horn-girl {
     background: #003973;
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #003973, #e5e5Be);
+    background: -webkit-linear-gradient(to left, #003973, #e5e5be);
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #003973, #e5e5Be);
+    background: linear-gradient(to left, #003973, #e5e5be);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
