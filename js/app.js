@@ -1,7 +1,5 @@
 var App = (function(global) {
-
     'use strict';
-
     var TILE_WIDTH = 100,
         TILE_HEIGHT = 80,
         allEnemies = [],
@@ -203,7 +201,7 @@ var App = (function(global) {
     };
 
     /**
-     * @Based on whether player is playing, loses game, wins, or loses game and all lives, a different status
+     * Based on whether player is playing, loses game, wins, or loses game and all lives, a different status
      * message appears in top right corner of window.
      * @param {string} status - 4 possible
      * Creates a span with same ID as span on page, inserts message into it using .innerHTML DOM method.
@@ -255,7 +253,7 @@ var App = (function(global) {
     };
 
     /**
-     * @Moves player when user presses arrow key. Player has a direction property based on keyDirection, direction = keyDirection;
+     * Moves player when user presses arrow key. Player has a direction property based on keyDirection, direction = keyDirection;
      * Based on this.direction, execute that code block to set futureY or futureX. In case it's up and they haven't just won
      * I wanted to decrease the amount they could move so they wouldn't move off the screen when
      * they won, instead player sits on edge of water. Otherwise, they move up 80 like normal.
@@ -404,9 +402,12 @@ var App = (function(global) {
         return false;
     };
 
-    /* Using characters element allows for event delegation and one event listeners
-    instead of 5. Characters declared at top of app.js with all global variables.
-    Event listener needs to be on dragstart for drag and drop to work. */
+    /**
+    * Using characters element allows for event delegation and one event listeners
+    * instead of 5. Characters declared at top of app.js with all global variables.
+    * Event listener needs to be on dragstart for drag and drop to work.
+    */
+
     document.getElementById('characters').addEventListener('dragstart', function(event) {
         player.handleDragStart(event);
     }, false);
