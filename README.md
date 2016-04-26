@@ -1,6 +1,6 @@
 #Classic Arcade Game Clone
 
-**Project 3:  Classic Arcade Game Clone (42 hrs)** ~ [Udacity Front End Web Developer Nanodegree Program](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001)
+**Project 3: Classic Arcade Game Clone (72 hrs)** ~ [Udacity Front End Web Developer Nanodegree Program](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001)
 
 **Directions**: You will be provided with visual assets and a game loop engine; using these tools you must add a number of entities to the game including the player characters and enemies to recreate the classic arcade game Frogger.
 
