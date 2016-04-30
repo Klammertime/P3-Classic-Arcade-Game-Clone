@@ -4,10 +4,10 @@
 
 In order to recreate the classic arcade game Frogger, we were provided with visual assets, an image loading utility (resources.js) and a game loop engine (engine.js). I created all of the game logic and the code within app.js to add a number of entities to the game, including player characters, enemies, and gem prizes.
 
-####[**~PLAY THE GAME ONLINE HERE~**](http://klammertime.github.io/P3-Classic-Arcade-Game-Clone/)
-![alt text](https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone/blob/multiplayer/images/char-princess-girl.png "Princess")
-![alt text](https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone/blob/multiplayer/images/enemy-bug.png "Enemy")
-![alt text](https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone/blob/multiplayer/images/Gem-Orange.png "Gem")
+###[**~PLAY THE GAME ONLINE HERE~**](http://klammertime.github.io/P3-Classic-Arcade-Game-Clone/)
+![Princess](https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone/blob/multiplayer/images/char-princess-girl.png "Princess")
+![Enemy](https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone/blob/multiplayer/images/enemy-bug.png "Enemy")
+![Gemt](https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone/blob/multiplayer/images/Gem-Orange.png "Gem")
 
 Usage
 -----
@@ -15,7 +15,8 @@ Usage
 2. Navigate to your local copy of index.html through your web browser 
 
 ##Technologies Used
-Object-Oriented JavaScript, HTML5 Canvas, HTML5 Drag & Drop  
+Object-Oriented JavaScript, HTML5 Canvas, HTML5 Drag & Drop 
+* When you drag and drop a new player onto the board, the background changes color to match the player using a CSS gradient. 
 
 ##Game Directions & Rules
 1. The goal is to get your character to the water while avoiding getting hit by the enemy bugs
@@ -35,6 +36,8 @@ Object-Oriented JavaScript, HTML5 Canvas, HTML5 Drag & Drop
 
 ##Potential New Features
 * Use video game icons from http://megaicons.net/
-* Use sounds from http://www.freesound.org/
+* Use sounds from http://www.freesound.org/ for sound effects
+* Use winner images in images library: when win the screen is covered by image then resets and starts again
+* Use localStorage to save the score
 
 
