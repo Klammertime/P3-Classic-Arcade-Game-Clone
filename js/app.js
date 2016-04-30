@@ -4,7 +4,7 @@ var App = (function(global) {
         TILE_HEIGHT = 80,
         allEnemies = [],
         allGems = [],
-        Enemy,
+        Enemy, // Typically bad practice to have upper and lowercase of same var name
         enemy,
         Player,
         player,
@@ -61,10 +61,12 @@ var App = (function(global) {
     /**
      * Updates enemy's position using dt param, a time delta between ticks
      * @param {number} dt - Time delta between ticks defined in engine.js: var now = Date.now(),
-     * dt = (now - lastTime) / 1000.0; Often used in online games.
+     * dt = (now - lastTime) / 1000.0; Often used in online games. It ensures all graphics
+     * render at same speed regardless of the browser.
      * As long as enemy's x coordinate is still on the canvas, or less than 550, keep updating
-     * the speed. Otherwise, if it's reached the end of canvas, reset its x to a negative random value
-     * to start on left of canvas. Its random so that each enemy has a different starting position.
+     * the speed. Otherwise, if it's reached the end of canvas, reset enemy's x to a random negative
+     * value to reset it back to the start on left of canvas.
+     * Its random so that each enemy has a different starting position.
      */
 
     Enemy.prototype.update = function(dt) {
@@ -169,7 +171,7 @@ var App = (function(global) {
      * If they have 0 lives, call lostGame and exit out. Otherwise they just died but have lives left, decrease score 20.
      * Then show their new status message, points, reset player back to start and place new gems on the board.
      */
-
+     //TODO: Any reason to use switch statement here?
     Player.prototype.changeLives = function(life) {
         this.lives += life;
         this.displayLives();
@@ -307,7 +309,7 @@ var App = (function(global) {
     };
 
     /**
-     * Represents a gem
+     * Represents a gem which supplies points when collected
      * @constructor, subclass of Entity
      * @param {number} x - Gem's x coordinate on canvas
      * @param {number} y - Gem's x coordinate on canvas
@@ -403,7 +405,7 @@ var App = (function(global) {
     };
 
     /**
-    * Using characters element allows for event delegation and one event listeners
+    * Using characters element allows for event delegation and one event listener
     * instead of 5. Characters declared at top of app.js with all global variables.
     * Event listener needs to be on dragstart for drag and drop to work.
     */
@@ -415,6 +417,10 @@ var App = (function(global) {
 
     document.getElementById('game-zone').addEventListener('dragover', player.handleDragOver, false);
     document.getElementById('game-zone').addEventListener('drop', player.handleDragDrop, false);
+
+    /**
+    * Using global makes the following available in engine.js
+    */
     global.allEnemies = allEnemies;
     global.player = player;
     global.allGems = allGems;

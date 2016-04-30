@@ -1,8 +1,16 @@
 #Classic Arcade Game Clone
 
+[**See the live version here**](http://klammertime.github.io/P3-Classic-Arcade-Game-Clone/)
+
+Reference-style: 
+![alt text][logo]
+
+[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
+
+
 **Project 3: Classic Arcade Game Clone (72 hrs)** ~ [Udacity Front End Web Developer Nanodegree Program](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001)
 
-**Directions**: You will be provided with visual assets and a game loop engine; using these tools you must add a number of entities to the game including the player characters and enemies to recreate the classic arcade game Frogger.
+**Project Completion Directions**: You will be provided with visual assets and a game loop engine; using these tools you must add a number of entities to the game including the player characters and enemies to recreate the classic arcade game Frogger.
 
 [Grading rubric](https://www.udacity.com/course/viewer/#!/c-nd001/l-2696458597/m-2687128535)
 
