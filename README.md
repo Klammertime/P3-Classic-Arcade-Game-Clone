@@ -4,17 +4,8 @@
 
 In order to recreate the classic arcade game Frogger, we were provided with visual assets, an image loading utility (resources.js) and a game loop engine (engine.js). I created all of the game logic and the code within app.js to add a number of entities to the game, including player characters, enemies, and gem prizes.
 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
-[**Play the game online here**](http://klammertime.github.io/P3-Classic-Arcade-Game-Clone/)
-
-
-P3-Classic-Arcade-Game-Clone/images/char-princess-girl.png
-
-![alt text](https://raw.githubusercontent.com/Klammertime/P3-Classic-Arcade-Game-Clone/multiplayer/images/char-princess-girl.png "Logo Title Text 1")
-
 ![alt text](https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone/blob/multiplayer/images/char-princess-girl.png "Logo Title Text 1")
-
-
+[**Play the game online here**](http://klammertime.github.io/P3-Classic-Arcade-Game-Clone/)
 
 Usage
 -----
