@@ -6,6 +6,8 @@ In order to recreate the classic arcade game Frogger, we were provided with visu
 
 ###[**Play the game online here**](http://klammertime.github.io/P3-Classic-Arcade-Game-Clone/)
 ![alt text](https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone/blob/multiplayer/images/char-princess-girl.png "Logo Title Text 1")
+![alt text](https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone/blob/multiplayer/images/char-princess-girl.png "Logo Title Text 1")
+![alt text](https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone/blob/multiplayer/images/char-princess-girl.png "Logo Title Text 1")
 
 Usage
 -----
