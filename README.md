@@ -1,6 +1,6 @@
 #Classic Arcade Game Clone
 
-**Project 3: Classic Arcade Game Clone (72 hrs)** ~ [Udacity Front End Web Developer Nanodegree Program](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001)
+**Project 3: Classic Arcade Game Clone (72 hrs)** ~ [Udacity Front-End Web Developer Nanodegree Program](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001)
 
 In order to recreate the classic arcade game Frogger, we were provided with visual assets, an image loading utility (resources.js) and a game loop engine (engine.js). I created all of the game logic and the code within app.js to add a number of entities to the game, including player characters, enemies, and gem prizes.
 
@@ -17,6 +17,9 @@ Usage
 ##Technologies Used
 Object-Oriented JavaScript, HTML5 Canvas, HTML5 Drag & Drop 
 * When you drag and drop a new player onto the board, the background changes color to match the player using a CSS gradient. 
+
+##Style Guide Used
+[Udacity Front-End Style Guide](http://udacity.github.io/frontend-nanodegree-styleguide/)
 
 ##Game Directions & Rules
 1. The goal is to get your character to the water while avoiding getting hit by the enemy bugs
