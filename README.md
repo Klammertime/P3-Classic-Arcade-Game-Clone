@@ -1,13 +1,11 @@
 #Classic Arcade Game Clone
 
-![alt text][logo]
-
-[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
-[**Play the game online here**](http://klammertime.github.io/P3-Classic-Arcade-Game-Clone/)
-
 **Project 3: Classic Arcade Game Clone (72 hrs)** ~ [Udacity Front End Web Developer Nanodegree Program](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001)
 
 In order to recreate the classic arcade game Frogger, we were provided with visual assets, an image loading utility (resources.js) and a game loop engine (engine.js). I created all of the game logic and the code within app.js to add a number of entities to the game, including player characters, enemies, and gem prizes.
+
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+[**Play the game online here**](http://klammertime.github.io/P3-Classic-Arcade-Game-Clone/)
 
 Usage
 -----
