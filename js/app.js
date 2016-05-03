@@ -1,5 +1,4 @@
 var App = (function(global) {
-    'use strict';
     var TILE_WIDTH = 100,
         TILE_HEIGHT = 80,
         allEnemies = [],
@@ -135,6 +134,7 @@ var App = (function(global) {
 
     // When player dies or wins, reset to original x & y location.
     Player.prototype.reset = function() {
+        console.log("reset ran");
         this.x = 200;
         this.y = 380;
         this.isMoving = false;
@@ -329,10 +329,14 @@ var App = (function(global) {
 
     // If player reaches a gem, increase score by 20, find the gem in the allGems array and remove it
     Gem.prototype.update = function() {
+        console.log("player.y", player.y);
+        console.log("this.y", this.y);
         if ((player.x >= this.x - 20 && player.x <= this.x + 20) &&
             (player.y === this.y)) {
 
             for (var i = 0; i < 3; i++) {
+                console.log("allGems", allGems);
+
                 if (this.y === allGems[i].y) {
                     allGems.splice(i, 1);
                     player.changeScore(20);
