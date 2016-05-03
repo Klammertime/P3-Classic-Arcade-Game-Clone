@@ -1,4 +1,3 @@
-'use strict';
 
 /* Engine.js
  * This file provides the game loop functionality (update entities and render),
@@ -17,15 +16,17 @@
  */
 
 var Engine = (function(global) {
+    'use strict';
+
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
      */
     var doc = global.document,
-        win = global.window,
-        canvas = doc.createElement('canvas'),
-        ctx = canvas.getContext('2d'),
-        lastTime;
+        win = global.window;
+    var canvas = doc.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    var lastTime;
 
     canvas.width = 505;
     canvas.height = 600; // I changed it from 606
