@@ -1,7 +1,7 @@
 {
-    "name": "frontend-nanodegree-arcade-game",
+    "name": "P3-Classic-Arcade-Game-Clone",
     "version": "1.0.0",
-    "description": "Udacity project 3 - frogger game.",
+    "description": "Udacity project 3 - Frogger",
     "main": "index.js",
     "dependencies": {},
     "devDependencies": {
@@ -14,12 +14,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Klammertime/frontend-nanodegree-arcade-game.git"
+        "url": "git+https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone.git"
     },
     "author": "",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/Klammertime/frontend-nanodegree-arcade-game/issues"
+        "url": "https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone/issues"
     },
-    "homepage": "https://github.com/Klammertime/frontend-nanodegree-arcade-game#readme"
+    "homepage": "https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone#readme"
 }

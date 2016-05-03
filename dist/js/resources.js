@@ -1,4 +1,4 @@
-"use strict";
+
 
 /* Resources.js
  * This is simply an image loading utility. It eases the process of loading
@@ -7,6 +7,7 @@
  * to load the same image multiple times.
  */
 (function() {
+    'use strict';
     var resourceCache = {};
     var loading = [];
     var readyCallbacks = [];
