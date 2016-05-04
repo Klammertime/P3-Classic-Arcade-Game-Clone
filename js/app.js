@@ -1,5 +1,4 @@
 
-
 var TILE_WIDTH = 100,
     TILE_HEIGHT = 80,
     allEnemies = [],
@@ -135,7 +134,6 @@ Player.prototype.delayThisStatus = function() {
 
 // When player dies or wins, reset to original x & y location.
 Player.prototype.reset = function() {
-    console.log("reset ran");
     this.x = 200;
     this.y = 380;
     this.isMoving = false;
@@ -150,12 +148,13 @@ Player.prototype.reset = function() {
  */
 
 Player.prototype.displayLives = function() {
-    var parentDiv = document.getElementById('lives');
-    var span2 = document.getElementById('hearts');
-    var span1 = document.createElement('span');
-    span1.id = 'hearts';
-    for (var i = 0; i < this.lives; i++) {
-        var img = new Image(); // HTML5 Constructor
+    var parentDiv = document.getElementById('lives'),
+        span2 = document.getElementById('hearts'),
+        span1 = document.createElement('span'),
+        img;
+        span1.id = 'hearts';
+    for (var i = 0, j = this.lives; i < j; i++) {
+        img = new Image(); // HTML5 Constructor
         img.src = 'images/Heart.png';
         img.id = 'life';
         img.alt = 'Lives';
@@ -251,8 +250,7 @@ Player.prototype.changeScore = function(points) {
 };
 
 Player.prototype.displayScore = function() {
-    var scoreBoard = document.getElementById('score');
-    scoreBoard.textContent = 'Your score: ' + this.score;
+   document.getElementById('score').textContent = 'Your score: ' + this.score;
 };
 
 /**
@@ -335,7 +333,6 @@ Gem.prototype.update = function() {
         (player.y === this.y)) {
 
         for (var g = 0; g < 3; g++) {
-            console.log("allGems", allGems);
 
             if (this.y === allGems[g].y) {
                 allGems.splice(g, 1);
@@ -351,20 +348,18 @@ Gem.prototype.update = function() {
 
 // Randomly set x & y of gems and colors.
 Gem.prototype.resetGems = function() {
+    var tempX = [0, 100, 200, 300, 400],
+        tempY = [60, 140, 220],
+        colors = ['Gem-Blue', 'Gem-Green', 'Gem-Orange'],
+        j,
+        k;
     allGems = [];
     for (var i = 0; i < 4; i++) {
-        var tempX = [0, 100, 200, 300, 400];
-        var tempY = [60, 140, 220];
-        var colors = ['Gem-Blue', 'Gem-Green', 'Gem-Orange'];
-        var j = Math.floor(Math.random() * 5); // Wanted gems apart so different indexes for x & y
-        var k = Math.floor(Math.random() * 3);
+        j = Math.floor(Math.random() * 5); // Wanted gems apart so different indexes for x & y
+        k = Math.floor(Math.random() * 3);
         allGems.push(new Gem(tempX[j], tempY[k], colors[k]));
     }
 };
-
-
-
-
 
 gem.resetGems();
 
@@ -429,4 +424,3 @@ document.getElementById('characters').addEventListener('dragstart', function(eve
 
 document.getElementById('game-zone').addEventListener('dragover', player.handleDragOver, false);
 document.getElementById('game-zone').addEventListener('drop', player.handleDragDrop, false);
-
