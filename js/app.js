@@ -37,15 +37,33 @@ Entity.prototype.render = function() {
  * @constructor
  * @param {number} enemyX - Enemy's x coordinate on canvas
  * @param {number} enemyY - Enemy's y coordinate on canvas
- * Enemy declared at top of app.js with all global variables
+ * Enemy declared at top of app.js with all global variables.
+ * Entity.call calls the Entity function passing in the Enemy being constructed
+ * so any Entity-related initialization can occur.
  */
 
 Enemy = function(x, y, sprite) {
+    // This makes sure Entity constructor is called from the Enemy constructor
     Entity.call(this, x, y, sprite);
     this.speed = Math.floor((Math.random() * 400) + 50); // Sets random initial speed
 };
 
+/**
+ * Setting up prototype chain so that Enemy inherits from the Entity prototype.
+ * In order to do that, you use Object.create and point it to prototype you'd
+ * like it to inherit from.
+ */
+
 Enemy.prototype = Object.create(Entity.prototype);
+
+/**
+ * You want the constructor to still be the Enemy constructor even though
+ * Enemy's prototype inherits from Entity's prototype, so you must point
+ * the Enemy.prototype.constructor at itself. Otherwise the constructor will
+ * be the Entity constructor, since when we set Enemy's prototype to Entity's
+ * prototype, that's what it does. Now you can create new Enemy's using the
+ * 'new' keyword.
+ */
 
 Enemy.prototype.constructor = Enemy;
 
@@ -125,8 +143,11 @@ Player.prototype.constructor = Player;
 
 player = new Player(200, 380, 'char-pink-girl');
 
-/* Player variable declared at top of app.js with all global variables
-Player on board initially is image 'char-pink-girl.png' */
+/** Player variable declared at top of app.js with all global variables.
+* Player on board initially is image 'char-pink-girl.png'.
+* '.bind(this)' is a way to bind the value of 'this' in setTimout to be 'player'
+* without having to use 'self'.
+*/
 
 Player.prototype.delayThisStatus = function() {
     window.setTimeout(this.displayStatus.bind(this), 1000);
@@ -328,12 +349,15 @@ gem = new Gem(0, 60, 'Gem-Blue');
 
 // If player reaches a gem, increase score by 20, find the gem in the allGems array and remove it
 Gem.prototype.update = function() {
-
     if ((player.x >= this.x - 20 && player.x <= this.x + 20) &&
-        (player.y === this.y)) {
+        // (player.y === this.y)) {
+        (player.y >= this.y - 20 && player.y <= this.y + 20)){
+    //     if ((playerX >= enemyX - 40 && playerX <= enemyX + 40) &&
+    //     (playerY >= enemyY - 20 && playerY <= enemyY + 20)) {
+    //     player.changeLives(-1);
+    // }
 
-        for (var g = 0; g < 3; g++) {
-
+        for (var g = 0; g < allGems.length; g++) {
             if (this.y === allGems[g].y) {
                 allGems.splice(g, 1);
                 player.changeScore(20);
@@ -348,12 +372,13 @@ Gem.prototype.update = function() {
 
 // Randomly set x & y of gems and colors.
 Gem.prototype.resetGems = function() {
+    allGems = [];
     var tempX = [0, 100, 200, 300, 400],
         tempY = [60, 140, 220],
         colors = ['Gem-Blue', 'Gem-Green', 'Gem-Orange'],
         j,
         k;
-    allGems = [];
+
     for (var i = 0; i < 4; i++) {
         j = Math.floor(Math.random() * 5); // Wanted gems apart so different indexes for x & y
         k = Math.floor(Math.random() * 3);
@@ -421,6 +446,7 @@ document.getElementById('characters').addEventListener('dragstart', function(eve
     player.handleDragStart(event);
 }, false);
 
-
 document.getElementById('game-zone').addEventListener('dragover', player.handleDragOver, false);
 document.getElementById('game-zone').addEventListener('drop', player.handleDragDrop, false);
+
+
