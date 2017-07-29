@@ -43,4 +43,7 @@ Object-Oriented JavaScript, HTML5 Canvas, HTML5 Drag & Drop
 * Use winner images in images library: when win the screen is covered by image then resets and starts again
 * Use localStorage to save the score
 
+* [Javascript Game Foundations - State Management](http://codeincomplete.com/posts/javascript-game-foundations-state-management/)
+* [How to code a HTML5 game with distinct game state](https://stackoverflow.com/questions/18038502/how-to-code-a-html5-game-with-distinct-game-states)
+* [Finite-State Machines: Theory and Implementation](https://gamedevelopment.tutsplus.com/tutorials/finite-state-machines-theory-and-implementation--gamedev-11867)
 
