@@ -279,38 +279,23 @@ Player.prototype.update = function() {
         futureY = this.y;
     // Here we set futureY or futureX value
     if (this.isMoving) {
-        // switch (this.direction) {
-        //     case 'up':
-        //         futureY -= futureY === 60 && this.status !== 'won' ? 59 : TILE_HEIGHT;
-        //         break;
-        //     case 'right':
-        //         futureX += TILE_WIDTH;
-        //         break;
-        //     case 'down':
-        //         futureY += TILE_HEIGHT;
-        //         break;
-        //     case 'left':
-        //         futureX -= TILE_WIDTH;
-        //         break;
-        // }
-
-    function setFutureDirection (direction) {
-        var futureDirection = {
-            'up': function () {
-                return futureY -= futureY === 60 && this.status !== 'won' ? 59 : TILE_HEIGHT;
-            },
-            'right': function () {
-                return futureX += TILE_WIDTH;
-            },
-            'down': function () {
-                return futureY += TILE_HEIGHT;
-            }, 
-            'left': function () {
-                return futureX -= TILE_WIDTH;
-            }
-        };
-        return futureDirection[direction]()
-    }
+        function setFutureDirection (direction) {
+            var futureDirection = {
+                'up': function () {
+                    return futureY -= futureY === 60 && this.status !== 'won' ? 59 : TILE_HEIGHT;
+                },
+                'right': function () {
+                    return futureX += TILE_WIDTH;
+                },
+                'down': function () {
+                    return futureY += TILE_HEIGHT;
+                }, 
+                'left': function () {
+                    return futureX -= TILE_WIDTH;
+                }
+            };
+            return futureDirection[direction]()
+        }
 
         setFutureDirection(this.direction);
 
