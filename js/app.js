@@ -236,27 +236,9 @@ Player.prototype.displayStatus = function() {
         span1,
         span2;
 
-    // switch (this.status) {
-    //     case 'playing':
-    //         msg = 'Keep going!';
-    //         break;
-    //     case 'lost game':
-    //         msg = 'You lost. That\'s okay.';
-    //         break;
-    //     case 'won':
-    //         msg = 'You won!';
-    //         break;
-    //     case 'died':
-    //         msg = 'You died!';
-    //         break;
-    //     case 'gem':gulgit
-    //         msg = '20 points!';
-    //         break;
-    // }
-
     function getMessage (status) {
         return 'You ' + {
-            'playing': 'are great. Keep going!',
+            'playing': 'rock!',
             'lost game': 'lost. That\'s okay.',
             'won': 'won!', 
             'died': 'died!',
@@ -297,20 +279,41 @@ Player.prototype.update = function() {
         futureY = this.y;
     // Here we set futureY or futureX value
     if (this.isMoving) {
-        switch (this.direction) {
-            case 'up':
-                futureY -= futureY === 60 && this.status !== 'won' ? 59 : TILE_HEIGHT;
-                break;
-            case 'right':
-                futureX += TILE_WIDTH;
-                break;
-            case 'down':
-                futureY += TILE_HEIGHT;
-                break;
-            case 'left':
-                futureX -= TILE_WIDTH;
-                break;
-        }
+        // switch (this.direction) {
+        //     case 'up':
+        //         futureY -= futureY === 60 && this.status !== 'won' ? 59 : TILE_HEIGHT;
+        //         break;
+        //     case 'right':
+        //         futureX += TILE_WIDTH;
+        //         break;
+        //     case 'down':
+        //         futureY += TILE_HEIGHT;
+        //         break;
+        //     case 'left':
+        //         futureX -= TILE_WIDTH;
+        //         break;
+        // }
+
+    function setFutureDirection (direction) {
+        var futureDirection = {
+            'up': function () {
+                return futureY -= futureY === 60 && this.status !== 'won' ? 59 : TILE_HEIGHT;
+            },
+            'right': function () {
+                return futureX += TILE_WIDTH;
+            },
+            'down': function () {
+                return futureY += TILE_HEIGHT;
+            }, 
+            'left': function () {
+                return futureX -= TILE_WIDTH;
+            }
+        };
+        return futureDirection[direction]()
+    }
+
+        setFutureDirection(this.direction);
+
         // Now update player
         if (futureY > 402 || futureY < 0) { // Will fall off top of canvas, so don't move.
             this.isMoving = false;
