@@ -232,33 +232,43 @@ Player.prototype.lostGame = function() {
  */
 
 Player.prototype.displayStatus = function() {
-    var msg,
-        parentDiv,
+    var brew parentDiv,
         span1,
         span2;
 
-    switch (this.status) {
-        case 'playing':
-            msg = 'Keep going!';
-            break;
-        case 'lost game':
-            msg = 'You lost. That\'s okay.';
-            break;
-        case 'won':
-            msg = 'You won!';
-            break;
-        case 'died':
-            msg = 'You died!';
-            break;
-        case 'gem':
-            msg = '20 points!';
-            break;
+    // switch (this.status) {
+    //     case 'playing':
+    //         msg = 'Keep going!';
+    //         break;
+    //     case 'lost game':
+    //         msg = 'You lost. That\'s okay.';
+    //         break;
+    //     case 'won':
+    //         msg = 'You won!';
+    //         break;
+    //     case 'died':
+    //         msg = 'You died!';
+    //         break;
+    //     case 'gem':
+    //         msg = '20 points!';
+    //         break;
+    // }
+
+    function getMessage (status) {
+        return 'You ' + {
+            'playing': 'are great. Keep going!',
+            'lost game': 'lost. That\'s okay.',
+            'won': 'won!', 
+            'died': 'died!',
+            'gem': ' earned 20 points.'
+        }[status];
     }
+    
     parentDiv = document.getElementById('displayStatus');
     span2 = document.getElementById('wl-update');
     span1 = document.createElement('span');
     span1.id = 'wl-update';
-    span1.innerHTML = msg;
+    span1.innerHTML = getMessage(this.status);
     parentDiv.replaceChild(span1, span2);
 };
 
