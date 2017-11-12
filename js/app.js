@@ -232,7 +232,7 @@ Player.prototype.lostGame = function() {
  */
 
 Player.prototype.displayStatus = function() {
-    var brew parentDiv,
+    var parentDiv,
         span1,
         span2;
 
