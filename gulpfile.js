@@ -25,9 +25,9 @@ gulp.task("build", function() {
 });
 
 gulp.task('deploy', function() {
-    return gulp.src(options.dist + '**/*')
-        .pipe(pages());
-})
+    return gulp.src('./dist/**/*')
+      .pipe(pages());
+});
 
 // Build task is a dependency of default task so can run command "gulp".
 gulp.task("default", ["clean"], function() {
