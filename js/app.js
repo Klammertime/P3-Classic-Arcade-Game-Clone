@@ -249,7 +249,7 @@ Player.prototype.displayStatus = function() {
     //     case 'died':
     //         msg = 'You died!';
     //         break;
-    //     case 'gem':gul
+    //     case 'gem':gulgit
     //         msg = '20 points!';
     //         break;
     // }
