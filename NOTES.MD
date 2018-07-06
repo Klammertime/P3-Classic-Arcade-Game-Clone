@@ -1,7 +1,7 @@
 
 
 
-###Creating Superclass & Subclasses Using Prototype Chain
+### Creating Superclass & Subclasses Using Prototype Chain
 
 I created a superclass, Entity, and the subclasses inherit from this superclass
 using a prototype chain (Enemy, Player and Gem). A great short explanation for how to set up a prototype chain is found in this video on Pluralsight: [Creating Your Own Protypal Inheritance Chains](https://app.pluralsight.com/player?course=javascript-objects-prototypes&author=jim-cooper&name=javascript-objects-prototypes-m3&clip=7&mode=live).
@@ -51,7 +51,7 @@ var fluffy = new Cat('Fluffy', 'White');
 
 * This video explains .call() well: [Udacity - OOJS: Pseudoclassical Subclasses > Using .call()](https://www.udacity.com/course/viewer#!/c-ud015/l-2794468541/m-2777058542)
 
-###Class-like Syntax
+### Class-like Syntax
 You can build the same class-like chain using class-like syntax, however, its
 just syntactic sugar built atop everything else we've learned about, shown above, with some small differences. And it is a little cleaner.
 * You can view [Creating Prototypes with Classes](https://app.pluralsight.com/player?course=javascript-objects-prototypes&author=jim-cooper&name=javascript-objects-prototypes-m3&clip=8&mode=live) to see how.
