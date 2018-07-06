@@ -96,6 +96,10 @@ class Player extends Entity {
     this.status = 'playing'; // Possible: "lostGame", "won", "died"
   }
 
+
+  get status(lives){
+
+  }
   delayThisStatus() {
     window.setTimeout(this.displayStatus.bind(this), 1000);
   }
@@ -109,12 +113,12 @@ class Player extends Entity {
   }
 
   displayLives() {
-    var parentDiv = document.getElementById('lives'),
+    let parentDiv = document.getElementById('lives'),
       span2 = document.getElementById('hearts'),
       span1 = document.createElement('span'),
       img;
     span1.id = 'hearts';
-    for (var i = 0, j = this.lives; i < j; i++) {
+    for (let i = 0, j = this.lives; i < j; i++) {
       img = new Image(); // HTML5 Constructor
       img.src = 'images/Heart.png';
       img.id = 'life';
@@ -163,8 +167,8 @@ class Player extends Entity {
     return false;
   }
 
-  displayStatus() {
-    var msg, parentDiv, span1, span2;
+  displayStatus(status) {
+    let msg, parentDiv, span1, span2;
 
     switch (this.status) {
       case 'playing':
@@ -202,7 +206,7 @@ class Player extends Entity {
 
   update() {
     // Store current location in future location variable
-    var futureX = this.x,
+    let futureX = this.x,
       futureY = this.y;
     // Here we set futureY or futureX value
     if (this.isMoving) {
@@ -251,9 +255,7 @@ class Player extends Entity {
 player = new Player(200, 380, 'char-pink-girl');
 
 player.displayStatus();
-
 player.displayLives();
-
 player.displayStatus();
 
 /**
@@ -276,7 +278,7 @@ class Gem extends Entity {
       player.x <= this.x + 20 &&
       (player.y >= this.y - 20 && player.y <= this.y + 20)
     ) {
-      for (var g = 0; g < allGems.length; g++) {
+      for (let g = 0; g < allGems.length; g++) {
         if (this.y === allGems[g].y) {
           allGems.splice(g, 1);
           player.changeScore(20);
@@ -291,13 +293,13 @@ class Gem extends Entity {
 
   resetGems() {
     allGems = [];
-    var tempX = [0, 100, 200, 300, 400],
+    let tempX = [0, 100, 200, 300, 400],
       tempY = [60, 140, 220],
       colors = ['Gem-Blue', 'Gem-Green', 'Gem-Orange'],
       j,
       k;
 
-    for (var i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i++) {
       j = Math.floor(Math.random() * 5); // Wanted gems apart so different indexes for x & y
       k = Math.floor(Math.random() * 3);
       allGems.push(new Gem(tempX[j], tempY[k], colors[k]));
