@@ -1,0 +1,33 @@
+{
+    "name": "P3-Classic-Arcade-Game-Clone",
+    "version": "1.0.0",
+    "description": "Udacity project 3 - Frogger",
+    "main": "index.js",
+    "dependencies": {},
+    "devDependencies": {
+<<<<<<< HEAD
+        "del": "^2.2.0",
+        "gulp": "^4.0.0",
+||||||| merged common ancestors
+        "gulp": "^3.9.0",
+        "del": "^2.2.0",
+=======
+        "del": "^2.2.2",
+        "gulp": "^3.9.1",
+>>>>>>> bbb7a7d880b84c5b69e08c08c250b729a5eb9855
+        "gulp-gh-pages": "^0.5.4"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone.git"
+    },
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone/issues"
+    },
+    "homepage": "https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone#readme"
+}

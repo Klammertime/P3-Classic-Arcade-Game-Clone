@@ -1,40 +1,49 @@
-frontend-nanodegree-arcade-game
-===============================
+# Classic Arcade Game Clone
 
-Students should use this [rubric](https://www.udacity.com/course/viewer/#!/c-nd001/l-2696458597/m-2687128535) for self-checking their submission.
+**Project 3: Classic Arcade Game Clone (72 hrs)** ~ [Udacity Front-End Web Developer Nanodegree Program (https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001)
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+In order to recreate the classic arcade game Frogger, we were provided with visual assets, an image loading utility (resources.js) and a game loop engine (engine.js). I created all of the game logic and the code within app.js to add a number of entities to the game, including player characters, enemies, and gem prizes.
 
-Getting Started
+### [**PLAY GAME HERE**](http://klammertime.github.io/P3-Classic-Arcade-Game-Clone/)
+![Princess](https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone/blob/multiplayer/images/char-princess-girl.png "Princess")
+![Enemy](https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone/blob/multiplayer/images/enemy-bug.png "Enemy")
+![Gem](https://github.com/Klammertime/P3-Classic-Arcade-Game-Clone/blob/multiplayer/images/Gem-Orange.png "Gem")
 
-You won’t have to build the game from scratch. We have provided the art assets and game engine for you. You can download or clone them from our repository.
-The repository contains css, images, and js folders, as well as an index.html and a README.md file. Once you have downloaded the files we have provided, you will have to edit app.js to build the game.
-The css folder contains a style.css file which you do not need to edit
-The images folder contains the png image files, which are used when displaying the game. The images for the player and enemy character are going to be loaded from this folder.
-The js folder also contains the app engine needed to run the game and a resources.js file. You do not need to edit these files.
-index.html - opening index.html should load the game
-README.md should contain instructions on how to load and play the game (you will need to add those instructions).
-Inside the app.js file, you will need to implement the Player and the Enemy classes, using Object-Oriented JavaScript. Part of the code for the Enemy is provided to you, and you will need to complete the following:
-The Enemy function, which initiates the Enemy by:
-Loading the image by setting this.sprite to the appropriate image in the image folder (already provided)
-Setting the Enemy initial location (you need to implement)
-Setting the Enemy speed (you need to implement)
-The update method for the Enemy
-Updates the Enemy location (you need to implement)
-Handles collision with the Player (you need to implement)
-You can add your own Enemy methods as needed
-You will also need to implement the Player class, and you can use the Enemy class as an example on how to get started. At minimum you should implement the following:
-The Player function, which initiates the Player by:
-Loading the image by setting this.sprite to the appropriate image in the image folder (use the code from the Enemy function as an example on how to do that)
-Setting the Player initial location
-The update method for the Player (can be similar to the one for the Enemy)
-The render method for the Player (use the code from the render method for the Enemy)
-The handleInput method, which should receive user input, allowedKeys (the key which was pressed) and move the player according to that input. In particular:
-Left key should move the player to the left, right key to the right, up should move the player up and down should move the player down.
-Recall that the player cannot move off screen (so you will need to check for that and handle appropriately).
-If the player reaches the water the game should be reset by moving the player back to the initial location (you can write a separate reset Player method to handle that).
-You can add your own Player methods as needed.
-Once you have completed implementing the Player and Enemy, you should instantiate them by:
-Creating a new Player object
-Creating several new Enemies objects and placing them in an array called allEnemies
+Usage
+-----
+1. Clone this repository
+2. Navigate to your local copy of index.html through your web browser 
+
+## Technologies Used
+Object-Oriented JavaScript, HTML5 Canvas, HTML5 Drag & Drop 
+* When you drag and drop a new player onto the board, the background changes color to match the player using a CSS gradient. 
+
+## Style Guide Used
+[Udacity Front-End Style Guide](http://udacity.github.io/frontend-nanodegree-styleguide/)
+
+## Game Directions & Rules
+1. The goal is to get your character to the water while avoiding getting hit by the enemy bugs
+2. Pick the character you'd like by dragging and dropping your character onto the game board. You are given 5 lives to start (hearts). Keep track of your score at the top
+3. Use your keyboard arrow keys to move the player up, down, right, left
+4. If a bug hits you, you die, lose a life, and 20 points
+5. If you gain a gem by moving on top of it, you gain 20 points
+6. If you lose you 5 lives, you lose the entire game, lose 50 points, and your character is reset with new lives
+7. If you reach the water, you win, gain 40 points and 1 life
+
+## Resources
+* **Udacity Supporting Courses**: [Object-Oriented JavaScript](https://www.udacity.com/course/object-oriented-javascript--ud015) & [HTML5 Canvas](https://www.udacity.com/course/html5-canvas--ud292)
+* **Treehouse**: [Coding Your First HTML5 Game](https://teamtreehouse.com/library/coding-your-first-html5-game), [Object Oriented JavaScript](https://teamtreehouse.com/library/objectoriented-javascript), [Understanding 'this' in JavaScript](https://teamtreehouse.com/library/understanding-this-in-javascript), [Interactive Web Pages with JavaScript](https://teamtreehouse.com/library/interactive-web-pages-with-javascript)
+* **Pluralsight**: [HTML5 Canvas Fundamentals](https://app.pluralsight.com/player?course=html5-canvas-fundamentals&author=dan-wahlin&name=html5-canvas-m3&clip=10&mode=live)
+* **Lynda.com**: [HTML5: Drag and Drop in Depth](http://www.lynda.com/HTML-tutorials/Understanding-HTML5-drag-drop/84812/87645-4.html), [Code Clinic: JavaScript - Using Drag & Drop](http://www.lynda.com/JavaScript-tutorials/Using-drag-drop/369707/386507-4.html), [JavaScript: Events - Dragging & dropping](http://www.lynda.com/JavaScript-tutorials/Dragging-dropping/140780/148737-4.html), [HTML5: Graphics and Animation with Canvas](http://www.lynda.com/HTML-tutorials/Welcome/80782/85030-4.html)
+* All game graphics provided from Daniel Cook under Creative Commons: [LostGarden](http://www.lostgarden.com/search/label/free%20game%20graphics)
+
+## Potential New Features
+* Use video game icons from http://megaicons.net/
+* Use sounds from http://www.freesound.org/ for sound effects
+* Use winner images in images library: when win the screen is covered by image then resets and starts again
+* Use localStorage to save the score
+
+* [Javascript Game Foundations - State Management](http://codeincomplete.com/posts/javascript-game-foundations-state-management/)
+* [How to code a HTML5 game with distinct game state](https://stackoverflow.com/questions/18038502/how-to-code-a-html5-game-with-distinct-game-states)
+* [Finite-State Machines: Theory and Implementation](https://gamedevelopment.tutsplus.com/tutorials/finite-state-machines-theory-and-implementation--gamedev-11867)
 
